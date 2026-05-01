@@ -1,8 +1,10 @@
 #pragma once
 
 #include <memory>
+
 #include "Core.h"
 #include "spdlog/spdlog.h"
+#include "spdlog/fmt/ostr.h"
 
 
 namespace GameEngine
@@ -35,3 +37,7 @@ namespace GameEngine
 #define GE_WARN(...)  ::GameEngine::Log::GetClientLogger()->warn(__VA_ARGS__)
 #define GE_ERROR(...) ::GameEngine::Log::GetClientLogger()->error(__VA_ARGS__)
 #define GE_FATAL(...) ::GameEngine::Log::GetClientLogger()->critical(__VA_ARGS__)
+
+#ifdef _MSC_VER
+	#pragma warning(pop)
+#endif
