@@ -1,3 +1,4 @@
 C:\dev\GameEngine\GameEngine\src\GameEngine\Application.cpp;C:\dev\GameEngine\bin-int\Debug-windows-x86_64\GameEngine\Application.obj
 C:\dev\GameEngine\GameEngine\src\GameEngine\Log.cpp;C:\dev\GameEngine\bin-int\Debug-windows-x86_64\GameEngine\Log.obj
+C:\dev\GameEngine\GameEngine\src\Platform\Windows\WindowsWindow.cpp;C:\dev\GameEngine\bin-int\Debug-windows-x86_64\GameEngine\WindowsWindow.obj
 C:\dev\GameEngine\GameEngine\src\gepch.cpp;C:\dev\GameEngine\bin-int\Debug-windows-x86_64\GameEngine\gepch.obj
