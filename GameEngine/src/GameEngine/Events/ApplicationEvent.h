@@ -2,7 +2,6 @@
 
 #include "GameEngine/Events/Event.h"
 
-#include <sstream>
 
 namespace GameEngine
 {
