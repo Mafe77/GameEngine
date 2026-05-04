@@ -39,10 +39,10 @@ namespace GameEngine
 		int m_RepeatCount;
 	};
 
-	class ENGINE_API KeyReleaseEvent : public KeyEvent
+	class ENGINE_API KeyReleasedEvent : public KeyEvent
 	{
 	public:
-		KeyReleaseEvent(int keycode)
+		KeyReleasedEvent(int keycode)
 			: KeyEvent(keycode) {}
 
 		std::string ToString() const override
