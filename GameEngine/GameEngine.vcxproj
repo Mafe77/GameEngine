@@ -84,7 +84,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/utf-8 /MDd %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -114,7 +114,7 @@ copy /B /Y ..\bin\Debug-windows-x86_64\GameEngine\GameEngine.dll $(SolutionDir)\
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/utf-8 /MD %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -145,7 +145,7 @@ copy /B /Y ..\bin\Release-windows-x86_64\GameEngine\GameEngine.dll $(SolutionDir
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/utf-8 /MD %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -172,6 +172,8 @@ copy /B /Y ..\bin\Dist-windows-x86_64\GameEngine\GameEngine.dll $(SolutionDir)\b
     <ClInclude Include="src\GameEngine\Events\Event.h" />
     <ClInclude Include="src\GameEngine\Events\KeyEvent.h" />
     <ClInclude Include="src\GameEngine\Events\MouseEvent.h" />
+    <ClInclude Include="src\GameEngine\Layer.h" />
+    <ClInclude Include="src\GameEngine\LayerStack.h" />
     <ClInclude Include="src\GameEngine\Log.h" />
     <ClInclude Include="src\GameEngine\Window.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
@@ -179,6 +181,8 @@ copy /B /Y ..\bin\Dist-windows-x86_64\GameEngine\GameEngine.dll $(SolutionDir)\b
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Application.cpp" />
+    <ClCompile Include="src\GameEngine\Layer.cpp" />
+    <ClCompile Include="src\GameEngine\LayerStack.cpp" />
     <ClCompile Include="src\GameEngine\Log.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\gepch.cpp">
