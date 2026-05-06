@@ -1,8 +1,0 @@
-C:\dev\GameEngine\GameEngine\src\GameEngine\Application.cpp;C:\dev\GameEngine\bin-int\Debug-windows-x86_64\GameEngine\Application.obj
-C:\dev\GameEngine\GameEngine\src\GameEngine\ImGui\ImGuiLayer.cpp;C:\dev\GameEngine\bin-int\Debug-windows-x86_64\GameEngine\ImGuiLayer.obj
-C:\dev\GameEngine\GameEngine\src\GameEngine\Layer.cpp;C:\dev\GameEngine\bin-int\Debug-windows-x86_64\GameEngine\Layer.obj
-C:\dev\GameEngine\GameEngine\src\GameEngine\LayerStack.cpp;C:\dev\GameEngine\bin-int\Debug-windows-x86_64\GameEngine\LayerStack.obj
-C:\dev\GameEngine\GameEngine\src\GameEngine\Log.cpp;C:\dev\GameEngine\bin-int\Debug-windows-x86_64\GameEngine\Log.obj
-C:\dev\GameEngine\GameEngine\src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp;C:\dev\GameEngine\bin-int\Debug-windows-x86_64\GameEngine\ImGuiOpenGLRenderer.obj
-C:\dev\GameEngine\GameEngine\src\Platform\Windows\WindowsWindow.cpp;C:\dev\GameEngine\bin-int\Debug-windows-x86_64\GameEngine\WindowsWindow.obj
-C:\dev\GameEngine\GameEngine\src\gepch.cpp;C:\dev\GameEngine\bin-int\Debug-windows-x86_64\GameEngine\gepch.obj
