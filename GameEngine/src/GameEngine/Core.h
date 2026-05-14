@@ -2,11 +2,15 @@
 
 
 #ifdef GE_PLATFORM_WINDOWS
+#if GE_DYNAMIC_LINK
 	#ifdef GE_BUILD_DLL
 		#define ENGINE_API __declspec(dllexport)
 	#else
 		#define ENGINE_API __declspec(dllimport)
 	#endif
+#else
+	#define ENGINE_API
+#endif
 #else
 	#error Game Engine only supports Windows.
 #endif
