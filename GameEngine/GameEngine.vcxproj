@@ -152,11 +152,6 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\GameEngine\Renderer\OrthographicCamera.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
-    <ClInclude Include="src\GameEngine\Renderer\RenderCommand.h" />
-    <ClInclude Include="src\GameEngine\Renderer\RendererAPI.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\GameEngine.h" />
     <ClInclude Include="src\GameEngine\Application.h" />
     <ClInclude Include="src\GameEngine\Core.h" />
@@ -174,22 +169,22 @@
     <ClInclude Include="src\GameEngine\MouseButtonCodes.h" />
     <ClInclude Include="src\GameEngine\Renderer\Buffer.h" />
     <ClInclude Include="src\GameEngine\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\GameEngine\Renderer\OrthographicCamera.h" />
+    <ClInclude Include="src\GameEngine\Renderer\RenderCommand.h" />
     <ClInclude Include="src\GameEngine\Renderer\Renderer.h" />
+    <ClInclude Include="src\GameEngine\Renderer\RendererAPI.h" />
     <ClInclude Include="src\GameEngine\Renderer\Shader.h" />
     <ClInclude Include="src\GameEngine\Renderer\VertexArray.h" />
     <ClInclude Include="src\GameEngine\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\gepch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\GameEngine\Renderer\OrthographicCamera.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
-    <ClCompile Include="src\GameEngine\Renderer\RenderCommand.cpp" />
-    <ClCompile Include="src\GameEngine\Renderer\RendererAPI.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\GameEngine\Application.cpp" />
     <ClCompile Include="src\GameEngine\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\GameEngine\ImGui\ImGuiLayer.cpp" />
@@ -197,11 +192,16 @@
     <ClCompile Include="src\GameEngine\LayerStack.cpp" />
     <ClCompile Include="src\GameEngine\Log.cpp" />
     <ClCompile Include="src\GameEngine\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\GameEngine\Renderer\OrthographicCamera.cpp" />
+    <ClCompile Include="src\GameEngine\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\GameEngine\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\GameEngine\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\GameEngine\Renderer\Shader.cpp" />
     <ClCompile Include="src\GameEngine\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\gepch.cpp">
