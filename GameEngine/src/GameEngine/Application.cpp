@@ -1,11 +1,9 @@
 #include "gepch.h"
 #include "Application.h"
 #include "Core.h"
+#include "Log.h"
 
-#include "GameEngine/Log.h"
-
-#include <GLFW/glfw3.h>
-#include <glad/glad.h>
+#include "Renderer/Renderer.h"
 
 namespace GameEngine
 {
@@ -14,6 +12,7 @@ namespace GameEngine
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application()
+		: m_Camera(-1.6f, 1.6f, -0.9f, 0.9f)
 	{
 		GE_CORE_ASSERT(!s_Instance, "Application already exists.");
 		s_Instance = this;
@@ -56,6 +55,8 @@ namespace GameEngine
 			layout(location = 0) in vec3 a_Position;
 			layout(location = 1) in vec4 a_Color;
 
+			uniform mat4 u_ViewProjection;
+
 			out vec3 v_Position;
 			out vec4 v_Color;
 
@@ -63,7 +64,7 @@ namespace GameEngine
 			{
 				v_Position = a_Position;
 				v_Color = a_Color;
-				gl_Position = vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
 			}			
 			
 		)";
@@ -123,12 +124,14 @@ namespace GameEngine
 	{
 		while (m_Running)
 		{
-			glClearColor(0.1f, 0.1f, 0.1f, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
+			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+			RenderCommand::Clear();
 
-			m_Shader->Bind();
-			m_VertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::BeingScene(m_Camera);
+
+			Renderer::Submit(m_Shader, m_VertexArray);
+
+			Renderer::EndScene();
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
