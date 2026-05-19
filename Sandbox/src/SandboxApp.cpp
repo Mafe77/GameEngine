@@ -71,23 +71,23 @@ public:
 		m_Shader.reset(new GameEngine::Shader(vertexSrc, fragmentSrc));
 	}
 
-	void OnUpdate() override
+	void OnUpdate(GameEngine::Timestep ts) override
 	{
 		if (GameEngine::Input::IsKeyPressed(GE_KEY_LEFT))
-			m_CameraPosition.x -= m_CameraSpeed;
+			m_CameraPosition.x -= m_CameraSpeed * ts;
 		else if (GameEngine::Input::IsKeyPressed(GE_KEY_RIGHT))
-			m_CameraPosition.x += m_CameraSpeed;
+			m_CameraPosition.x += m_CameraSpeed * ts;
 
 		if (GameEngine::Input::IsKeyPressed(GE_KEY_DOWN))
-			m_CameraPosition.y -= m_CameraSpeed;
+			m_CameraPosition.y -= m_CameraSpeed * ts;
 		else if (GameEngine::Input::IsKeyPressed(GE_KEY_UP))
-			m_CameraPosition.y += m_CameraSpeed;
+			m_CameraPosition.y += m_CameraSpeed * ts;
 
 
 		if (GameEngine::Input::IsKeyPressed(GE_KEY_A))
-			m_CameraRotation += m_CameraRotationSpeed;
+			m_CameraRotation += m_CameraRotationSpeed * ts;
 		else if (GameEngine::Input::IsKeyPressed(GE_KEY_D))
-			m_CameraRotation -= m_CameraRotationSpeed;
+			m_CameraRotation -= m_CameraRotationSpeed * ts;
 
 		GameEngine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		GameEngine::RenderCommand::Clear();
@@ -118,10 +118,10 @@ private:
 
 	GameEngine::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
-	float m_CameraSpeed = 0.1f;
+	float m_CameraSpeed = 5.0f;
 
 	float m_CameraRotation = 0.0f;
-	float m_CameraRotationSpeed = 2.0f;
+	float m_CameraRotationSpeed = 180.0f;
 };
 
 class Sandbox : public GameEngine::Application

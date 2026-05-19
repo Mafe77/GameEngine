@@ -7,16 +7,13 @@
 #include "GameEngine/LayerStack.h"
 #include "GameEngine/Events/ApplicationEvent.h"
 
+#include "GameEngine/Core/Timestep.h"
 #include "GameEngine/ImGui/ImGuiLayer.h"
 
-#include "GameEngine/Renderer/Shader.h"
-#include "GameEngine/Renderer/Buffer.h"
-#include "GameEngine/Renderer/VertexArray.h"
-#include "GameEngine/Renderer/OrthographicCamera.h"
 
 namespace GameEngine
 {
-	class ENGINE_API Application
+	class Application
 	{
 	public:
 		Application();
@@ -40,6 +37,8 @@ namespace GameEngine
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+
+		float m_LastFrameTime = 0.0f;
 
 	private:
 		static Application* s_Instance;
