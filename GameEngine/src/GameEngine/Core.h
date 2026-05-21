@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 
 #ifdef GE_PLATFORM_WINDOWS
 #if GE_DYNAMIC_LINK
@@ -32,3 +33,12 @@
 #define BIT(x) (1 << x)
 
 #define GE_BIND_EVENT_FN(fn) [this](auto& e) { return fn(e); }
+
+namespace GameEngine
+{
+	template<typename T>
+	using Scope = std::unique_ptr<T>;
+
+	template<typename T>
+	using Ref = std::shared_ptr<T>;
+}

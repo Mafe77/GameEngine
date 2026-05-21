@@ -90,8 +90,7 @@ namespace GameEngine
 
 	void ImGuiLayer::OnImGuiRender()
 	{
-		/*static bool show = false;
-		ImGui::ShowDemoWindow(&show);*/
+		
 	}
 	
 }
