@@ -101,7 +101,7 @@ public:
 			
 		)";
 
-		m_Shader.reset(GameEngine::Shader::Create(vertexSrc, fragmentSrc));
+		//m_Shader = GameEngine::Shader::Create("Triangle", vertexSrc, fragmentSrc);
 
 		std::string flatColorShaderVertexSrc = R"(
 			#version 330 core
@@ -137,49 +137,14 @@ public:
 			
 		)";
 
-		m_FlatColorShader.reset(GameEngine::Shader::Create(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
+		m_FlatColorShader = GameEngine::Shader::Create("squareGrid", flatColorShaderVertexSrc, flatColorShaderFragmentSrc);
 
-		std::string textureShaderVertexSrc = R"(
-			#version 330 core
-
-			layout(location = 0) in vec3 a_Position;
-			layout(location = 1) in vec2 a_TextCoord;
-
-			uniform mat4 u_ViewProjection;
-			uniform mat4 u_Transform;
-
-			out vec2 v_TextCoord;
-
-			void main()
-			{
-				v_TextCoord = a_TextCoord;
-				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
-			}			
-			
-		)";
-
-		std::string textureShaderFragmentSrc = R"(
-			#version 330 core
-
-			layout(location = 0) out vec4 color;
-
-			in vec2 v_TextCoord;
-
-			uniform sampler2D u_Texture;
-
-			void main()
-			{
-				color = texture(u_Texture, v_TextCoord);
-			}			
-			
-		)";
-
-		m_TextureShader.reset(GameEngine::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
+		auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
 		m_Texture = GameEngine::Texture2D::Create("assets/textures/Checkerboard.png");
 
-		std::dynamic_pointer_cast<GameEngine::OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<GameEngine::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+		std::dynamic_pointer_cast<GameEngine::OpenGLShader>(textureShader)->Bind();
+		std::dynamic_pointer_cast<GameEngine::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
 
 	}
 
@@ -225,8 +190,10 @@ public:
 			}
 		}
 
+		auto textureShader = m_ShaderLibrary.Get("Texture");
+
 		m_Texture->Bind();
-		GameEngine::Renderer::Submit(m_TextureShader, m_SquareVA, 
+		GameEngine::Renderer::Submit(textureShader, m_SquareVA, 
 			glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		// Triangle
@@ -248,10 +215,11 @@ public:
 	}
 
 private:
+	GameEngine::ShaderLibrary m_ShaderLibrary;
 	GameEngine::Ref<GameEngine::Shader> m_Shader;
 	GameEngine::Ref<GameEngine::VertexArray> m_VertexArray;
 	
-	GameEngine::Ref<GameEngine::Shader> m_FlatColorShader, m_TextureShader;
+	GameEngine::Ref<GameEngine::Shader> m_FlatColorShader;
 	GameEngine::Ref<GameEngine::VertexArray> m_SquareVA;
 
 	GameEngine::Ref<GameEngine::Texture2D> m_Texture;
