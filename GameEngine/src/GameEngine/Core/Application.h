@@ -3,8 +3,8 @@
 #include "Core.h"
 
 #include "Window.h"
-#include "Events/Event.h"
-#include "GameEngine/LayerStack.h"
+#include "GameEngine/Events/Event.h"
+#include "GameEngine/Core/LayerStack.h"
 #include "GameEngine/Events/ApplicationEvent.h"
 
 #include "GameEngine/Core/Timestep.h"
@@ -32,11 +32,13 @@ namespace GameEngine
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
+		bool OnWindowResize(WindowResizeEvent& e);
 
 	private:
 		Scope<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
+		bool m_Minimized = false;
 		LayerStack m_LayerStack;
 
 		float m_LastFrameTime = 0.0f;
