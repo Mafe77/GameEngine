@@ -6,6 +6,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include <chrono>
+
+
 Sandbox2D::Sandbox2D()
 	: Layer("Sandbox2D"), m_CameraController(1280.0f / 720.0f)
 {
@@ -13,6 +16,8 @@ Sandbox2D::Sandbox2D()
 
 void Sandbox2D::OnAttach()
 {
+	GE_PROFILE_FUNCTION();
+
 	m_Texture = GameEngine::Texture2D::Create("assets/textures/Checkerboard.png");
 }
 
@@ -22,25 +27,34 @@ void Sandbox2D::OnDetach()
 
 void Sandbox2D::OnUpdate(GameEngine::Timestep ts)
 {
+	GE_PROFILE_FUNCTION();
+
 	// Update
 	m_CameraController.OnUpdate(ts);
 
 	// Render
-	GameEngine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
-	GameEngine::RenderCommand::Clear();
+	{
+		GE_PROFILE_SCOPE("Renderer Prep");
+		GameEngine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+		GameEngine::RenderCommand::Clear();
+	}
 
-	GameEngine::Renderer2D::BeginScene(m_CameraController.GetCamera());
-
-	GameEngine::Renderer2D::DrawQuad({-1.0f, 0.0f}, {1.0f, 1.0f}, m_SquareColor);
-	GameEngine::Renderer2D::DrawQuad({0.5f, -0.5f}, {1.0f, 1.0f}, m_Texture);
-
-	GameEngine::Renderer2D::EndScene();
+	{
+		GE_PROFILE_SCOPE("Renderer Draw");
+		GameEngine::Renderer2D::BeginScene(m_CameraController.GetCamera());
+		GameEngine::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 1.0f, 1.0f }, m_SquareColor);
+		GameEngine::Renderer2D::DrawQuad({ 0.5f, -0.5f }, { 1.0f, 1.0f }, m_Texture);
+		GameEngine::Renderer2D::EndScene();	
+	}
 }
 
 void Sandbox2D::OnImGuiRender()
 {
+	GE_PROFILE_FUNCTION();
+
 	ImGui::Begin("Settings");
 	ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
+
 	ImGui::End();
 }
 

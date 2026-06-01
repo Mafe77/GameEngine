@@ -10,7 +10,7 @@ namespace GameEngine
 	class ENGINE_API LayerStack
 	{
 	public:
-		LayerStack();
+		LayerStack() = default;
 		~LayerStack();
 
 		void PushLayer(Layer* layer);

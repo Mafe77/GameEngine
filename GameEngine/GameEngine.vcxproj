@@ -152,6 +152,7 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameEngine\Debug\Instrumentor.h" />
     <ClInclude Include="src\GameEngine\Renderer\Renderer2D.h" />
     <ClInclude Include="src\GameEngine.h" />
     <ClInclude Include="src\GameEngine\Core\Application.h" />

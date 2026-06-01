@@ -2,6 +2,7 @@
 
 
 #include "GameEngine/Core/Log.h"
+#include "GameEngine/Debug/Instrumentor.h"
 
 #include <iostream>
 #include <memory>

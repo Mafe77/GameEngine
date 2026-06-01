@@ -1423,6 +1423,7 @@
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Renderer\Renderer2D.h" />
+    <ClInclude Include="src\GameEngine\Debug\Instrumentor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Core\Application.cpp">
