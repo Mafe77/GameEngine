@@ -43,7 +43,9 @@ void Sandbox2D::OnUpdate(GameEngine::Timestep ts)
 		GE_PROFILE_SCOPE("Renderer Draw");
 		GameEngine::Renderer2D::BeginScene(m_CameraController.GetCamera());
 		GameEngine::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 1.0f, 1.0f }, m_SquareColor);
-		GameEngine::Renderer2D::DrawQuad({ 0.5f, -0.5f }, { 1.0f, 1.0f }, m_Texture);
+		GameEngine::Renderer2D::DrawRotatedQuad({ 1.2f, 0.0f }, { 1.0f, 1.0f }, 0.2f, m_SquareColor);
+		GameEngine::Renderer2D::DrawQuad({ 1.0f, 1.0f }, { 1.0f, 1.0f }, m_Texture, 10, { 0.2f, 0.7f, 0.8f, 0.2f });
+		GameEngine::Renderer2D::DrawRotatedQuad({ 0.5f, -0.5f }, { 0.5f, 0.5f }, 1.0f, m_Texture);
 		GameEngine::Renderer2D::EndScene();	
 	}
 }
