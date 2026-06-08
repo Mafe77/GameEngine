@@ -10,11 +10,11 @@ namespace GameEngine
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::API::None:	GE_CORE_ASSERT(false, "RendererAPI::None not supported."); return nullptr;
-			case RendererAPI::API::OpenGL:  return CreateRef<OpenGLTexture2D>(width, height);
+		case RendererAPI::API::None:    GE_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+		case RendererAPI::API::OpenGL:  return CreateRef<OpenGLTexture2D>(width, height);
 		}
 
-		GE_CORE_ASSERT(false, "Unknown RendererAPI");
+		GE_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
 	}
 
@@ -22,11 +22,11 @@ namespace GameEngine
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::API::None:	GE_CORE_ASSERT(false, "RendererAPI::None not supported."); return nullptr;
+		case RendererAPI::API::None:    GE_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
 		case RendererAPI::API::OpenGL:  return CreateRef<OpenGLTexture2D>(path);
 		}
 
-		GE_CORE_ASSERT(false, "Unknown RendererAPI");
+		GE_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
 	}
 }

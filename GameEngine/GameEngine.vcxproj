@@ -152,8 +152,6 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\GameEngine\Debug\Instrumentor.h" />
-    <ClInclude Include="src\GameEngine\Renderer\Renderer2D.h" />
     <ClInclude Include="src\GameEngine.h" />
     <ClInclude Include="src\GameEngine\Core\Application.h" />
     <ClInclude Include="src\GameEngine\Core\Core.h" />
@@ -166,6 +164,7 @@
     <ClInclude Include="src\GameEngine\Core\MouseButtonCodes.h" />
     <ClInclude Include="src\GameEngine\Core\Timestep.h" />
     <ClInclude Include="src\GameEngine\Core\Window.h" />
+    <ClInclude Include="src\GameEngine\Debug\Instrumentor.h" />
     <ClInclude Include="src\GameEngine\Events\ApplicationEvent.h" />
     <ClInclude Include="src\GameEngine\Events\Event.h" />
     <ClInclude Include="src\GameEngine\Events\KeyEvent.h" />
@@ -177,6 +176,7 @@
     <ClInclude Include="src\GameEngine\Renderer\OrthographicCameraController.h" />
     <ClInclude Include="src\GameEngine\Renderer\RenderCommand.h" />
     <ClInclude Include="src\GameEngine\Renderer\Renderer.h" />
+    <ClInclude Include="src\GameEngine\Renderer\Renderer2D.h" />
     <ClInclude Include="src\GameEngine\Renderer\RendererAPI.h" />
     <ClInclude Include="src\GameEngine\Renderer\Shader.h" />
     <ClInclude Include="src\GameEngine\Renderer\Texture.h" />
@@ -612,7 +612,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\GameEngine\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\GameEngine\Core\Application.cpp" />
     <ClCompile Include="src\GameEngine\Core\Layer.cpp" />
     <ClCompile Include="src\GameEngine\Core\LayerStack.cpp" />
@@ -624,6 +623,7 @@
     <ClCompile Include="src\GameEngine\Renderer\OrthographicCameraController.cpp" />
     <ClCompile Include="src\GameEngine\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\GameEngine\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\GameEngine\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\GameEngine\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\GameEngine\Renderer\Shader.cpp" />
     <ClCompile Include="src\GameEngine\Renderer\Texture.cpp" />

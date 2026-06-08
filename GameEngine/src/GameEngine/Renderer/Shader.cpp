@@ -1,6 +1,6 @@
 #include "gepch.h"
-#include "Shader.h"
-#include "Renderer.h"
+#include "GameEngine/Renderer/Renderer.h"
+#include "GameEngine/Renderer/Shader.h"
 
 #include "Platform/OpenGL/OpenGLShader.h"
 
@@ -10,30 +10,29 @@ namespace GameEngine
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::API::None:	GE_CORE_ASSERT(false, "RendererAPI::None not supported."); return nullptr;
-		case RendererAPI::API::OpenGL:	return CreateRef<OpenGLShader>(filepath);
+		case RendererAPI::API::None:    GE_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+		case RendererAPI::API::OpenGL:  return CreateRef<OpenGLShader>(filepath);
 		}
 
-		GE_CORE_ASSERT(false, "Unknown RendererAPI");
+		GE_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
 	}
 
-	Ref<Shader> Shader::Create(const std::string& name,
-		const std::string& vertexSrc, const std::string& fragmentSrc)
+	Ref<Shader> Shader::Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::API::None:	GE_CORE_ASSERT(false, "RendererAPI::None not supported."); return nullptr;
-			case RendererAPI::API::OpenGL:	return CreateRef<OpenGLShader>(name,vertexSrc, fragmentSrc);
+		case RendererAPI::API::None:    GE_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+		case RendererAPI::API::OpenGL:  return CreateRef<OpenGLShader>(name, vertexSrc, fragmentSrc);
 		}
 
-		GE_CORE_ASSERT(false, "Unknown RendererAPI");
+		GE_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
 	}
 
 	void ShaderLibrary::Add(const std::string& name, const Ref<Shader>& shader)
 	{
-		GE_CORE_ASSERT(!Exists(name), "Shader already exists.");
+		GE_CORE_ASSERT(!Exists(name), "Shader already exists!");
 		m_Shaders[name] = shader;
 	}
 
@@ -49,16 +48,17 @@ namespace GameEngine
 		Add(shader);
 		return shader;
 	}
+
 	Ref<Shader> ShaderLibrary::Load(const std::string& name, const std::string& filepath)
 	{
 		auto shader = Shader::Create(filepath);
-		Add(shader);
+		Add(name, shader);
 		return shader;
 	}
 
 	Ref<Shader> ShaderLibrary::Get(const std::string& name)
 	{
-		GE_CORE_ASSERT(Exists(name), "Shader not found.");
+		GE_CORE_ASSERT(Exists(name), "Shader not found!");
 		return m_Shaders[name];
 	}
 
