@@ -19,6 +19,11 @@ void Sandbox2D::OnAttach()
 	GE_PROFILE_FUNCTION();
 
 	m_Texture = GameEngine::Texture2D::Create("assets/textures/Checkerboard.png");
+
+	GameEngine::FramebufferSpec fbSpec;
+	fbSpec.Width = 1280;
+	fbSpec.Height = 720;
+	m_Framebuffer = GameEngine::Framebuffer::Create(fbSpec);
 }
 
 void Sandbox2D::OnDetach()
@@ -36,6 +41,7 @@ void Sandbox2D::OnUpdate(GameEngine::Timestep ts)
 	GameEngine::Renderer2D::ResetStats();
 	{
 		GE_PROFILE_SCOPE("Renderer Prep");
+		m_Framebuffer->Bind();
 		GameEngine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		GameEngine::RenderCommand::Clear();
 	}
@@ -47,6 +53,8 @@ void Sandbox2D::OnUpdate(GameEngine::Timestep ts)
 		GameEngine::Renderer2D::DrawQuad({ 0.0f, -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
 		//GameEngine::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.1f }, { 10.0f, 10.0f }, m_Texture, 10.0f);
 		GameEngine::Renderer2D::EndScene();	
+
+		m_Framebuffer->Unbind();
 
 		//GameEngine::Renderer2D::DrawRotatedQuad({ 0.5f, -0.5f }, { 0.5f, 0.5f }, 1.0f, m_Texture);
 	}
@@ -130,8 +138,8 @@ void Sandbox2D::OnImGuiRender()
 
 		ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
 
-		uint32_t textureID = m_Texture->GetRendererID();
-		ImGui::Image((void*)textureID, ImVec2{ 256.0f, 256.0f });
+		uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
+		ImGui::Image((void*)textureID, ImVec2{ 1280, 720 }, ImVec2{ 0,1 }, ImVec2{ 1, 0 });
 		ImGui::End();
 
 		ImGui::End();
@@ -150,7 +158,7 @@ void Sandbox2D::OnImGuiRender()
 		ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
 
 		uint32_t textureID = m_Texture->GetRendererID();
-		ImGui::Image((void*)textureID, ImVec2{ 256.0f, 256.0f });
+		ImGui::Image((void*)textureID, ImVec2{ 1280, 720 }, ImVec2{ 0,1 }, ImVec2{ 1, 0 });
 		ImGui::End();
 	}
 }
