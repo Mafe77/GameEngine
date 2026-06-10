@@ -16,7 +16,7 @@ namespace GameEngine
 	class Application
 	{
 	public:
-		Application();
+		Application(const std::string& name = "Game Engine");
 		virtual ~Application();
 
 		void Run();
@@ -31,6 +31,8 @@ namespace GameEngine
 		inline Window& GetWindow() { return *m_Window; }
 
 		void Close();
+
+		ImGuiLayer* GetImGuiLayer() { return m_ImGuiLayer; }
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);

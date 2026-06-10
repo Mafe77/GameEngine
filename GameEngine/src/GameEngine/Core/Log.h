@@ -8,7 +8,7 @@
 
 namespace GameEngine
 {
-	class ENGINE_API Log
+	class Log
 	{
 	public:
 		static void Init();

@@ -7,7 +7,7 @@
 
 namespace GameEngine
 {
-	class ENGINE_API LayerStack
+	class LayerStack
 	{
 	public:
 		LayerStack() = default;

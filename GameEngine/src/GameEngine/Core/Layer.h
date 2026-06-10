@@ -8,7 +8,7 @@
 
 namespace GameEngine
 {
-	class ENGINE_API Layer
+	class Layer
 	{
 	public:
 		Layer(const std::string& name = "Layer");
@@ -18,7 +18,7 @@ namespace GameEngine
 		virtual void OnDetach() {}
 		virtual void OnUpdate(Timestep ts) {}
 		virtual void OnImGuiRender() {}
-		virtual void OnEvent(Event& event) {}
+		virtual void OnEvent(Event& e) {}
 
 		inline const std::string & GetName() const { return m_DebugName; }
 	protected:
