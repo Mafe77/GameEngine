@@ -26,13 +26,22 @@ namespace GameEngine
 		fbSpec.Width = 1280;
 		fbSpec.Height = 720;
 		m_Framebuffer = GameEngine::Framebuffer::Create(fbSpec);
+
+		m_ActiveScene = CreateRef<Scene>();
+
+
+		// entity
+		auto square = m_ActiveScene->CreateEntity();
+		square.AddComponent<SpriteRendererComponent>(glm::vec4{ 0.0f, 1.0f, 0.0f, 1.0f });
+
+		m_SquareEntity = square;
 	}
 
 	void EditorLayer::OnDetach()
 	{
 	}
 
-	void EditorLayer::OnUpdate(GameEngine::Timestep ts)
+	void EditorLayer::OnUpdate(Timestep ts)
 	{
 		GE_PROFILE_FUNCTION();
 
@@ -41,26 +50,31 @@ namespace GameEngine
 			m_CameraController.OnUpdate(ts);
 
 		// Render
-		GameEngine::Renderer2D::ResetStats();
-		{
-			GE_PROFILE_SCOPE("Renderer Prep");
-			m_Framebuffer->Bind();
-			GameEngine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
-			GameEngine::RenderCommand::Clear();
-		}
-
+		Renderer2D::ResetStats();			
+		m_Framebuffer->Bind();
+		RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+		RenderCommand::Clear();
+		
+		/*
 		{
 			GE_PROFILE_SCOPE("Renderer Draw");
-			GameEngine::Renderer2D::BeginScene(m_CameraController.GetCamera());
-			GameEngine::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, { 0.8f, 0.2f, 0.3f, 1.0f });
-			GameEngine::Renderer2D::DrawQuad({ 0.0f, -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
-			//GameEngine::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.1f }, { 10.0f, 10.0f }, m_Texture, 10.0f);
-			GameEngine::Renderer2D::EndScene();
+			Renderer2D::BeginScene(m_CameraController.GetCamera());
+			Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, { 0.8f, 0.2f, 0.3f, 1.0f });
+			Renderer2D::DrawQuad({ 0.0f, -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
+			//Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.1f }, { 10.0f, 10.0f }, m_Texture, 10.0f);
+			Renderer2D::EndScene();
 
 			m_Framebuffer->Unbind();
 
-			//GameEngine::Renderer2D::DrawRotatedQuad({ 0.5f, -0.5f }, { 0.5f, 0.5f }, 1.0f, m_Texture);
-		}
+			//Renderer2D::DrawRotatedQuad({ 0.5f, -0.5f }, { 0.5f, 0.5f }, 1.0f, m_Texture);
+		}*/
+
+		Renderer2D::BeginScene(m_CameraController.GetCamera());
+		m_ActiveScene->OnUpdate(ts);
+
+		Renderer2D::EndScene();
+
+		m_Framebuffer->Unbind();
 	}
 
 	void EditorLayer::OnImGuiRender()
@@ -128,14 +142,22 @@ namespace GameEngine
 
 		ImGui::Begin("Settings");
 
-		auto stats = GameEngine::Renderer2D::GetStats();
+		auto stats = Renderer2D::GetStats();
 		ImGui::Text("Renderer2D Stats:");
 		ImGui::Text("Draw Calls: %d", stats.DrawCalls);
 		ImGui::Text("Quads: %d", stats.QuadCount);
 		ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
 		ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 
-		ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
+		if (m_SquareEntity)
+		{
+			ImGui::Separator();
+			auto& tag = m_SquareEntity.GetComponent<TagComponent>().Tag;
+			ImGui::Text("%s", tag.c_str());
+			auto& squareColor = m_SquareEntity.GetComponent<SpriteRendererComponent>().Color;
+			ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
+			ImGui::Separator();
+		}
 		ImGui::End();
 
 
@@ -147,7 +169,7 @@ namespace GameEngine
 		Application::Get().GetImGuiLayer()->BlockEvents(!m_ViewportFocused || !m_ViewportHovered);
 
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-		if (m_ViewportSize != *((glm::vec2*)&viewportPanelSize))
+		if (m_ViewportSize != *((glm::vec2*)&viewportPanelSize) && viewportPanelSize.x > 0 && viewportPanelSize.y > 0)
 		{
 			m_Framebuffer->Resize((uint32_t)viewportPanelSize.x, (uint32_t)viewportPanelSize.y);
 			m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
@@ -164,7 +186,7 @@ namespace GameEngine
 		
 	}
 
-	void EditorLayer::OnEvent(GameEngine::Event& e)
+	void EditorLayer::OnEvent(Event& e)
 	{
 		m_CameraController.OnEvent(e);
 	}
