@@ -2,6 +2,8 @@
 
 #include <glm/glm.hpp>
 
+#include "GameEngine/Scene/SceneCamera.h"
+
 namespace GameEngine
 {
 	struct TagComponent
@@ -35,5 +37,15 @@ namespace GameEngine
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;
 		SpriteRendererComponent(const glm::vec4& color)
 			: Color(color) {}
+	};
+
+	struct CameraComponent
+	{
+		SceneCamera Camera;
+		bool Primary = true;
+		bool FixedAspectRatio = false;
+
+		CameraComponent() = default;
+		CameraComponent(const CameraComponent&) = default;		
 	};
 }
