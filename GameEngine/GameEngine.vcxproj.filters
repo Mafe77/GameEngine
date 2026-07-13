@@ -1448,6 +1448,7 @@
     </ClInclude>
     <ClInclude Include="src\GameEngine\Renderer\Camera.h" />
     <ClInclude Include="src\GameEngine\Scene\SceneCamera.h" />
+    <ClInclude Include="src\GameEngine\Scene\ScriptableEntity.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Core\Application.cpp">

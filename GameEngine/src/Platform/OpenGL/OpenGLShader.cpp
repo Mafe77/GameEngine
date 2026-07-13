@@ -24,13 +24,9 @@ namespace GameEngine
 	{
 		GE_PROFILE_FUNCTION();
 
-		std::string source = ReadFile(filepath);
-		GE_CORE_INFO("Shader source length: {0}", source.size());
-		auto shaderSources = PreProcess(source);
-		GE_CORE_INFO("Shader stages found: {0}", shaderSources.size());
-		Compile(shaderSources);
-
-		GE_CORE_INFO("Shader compiled, ID: {0}", m_RendererID);
+		std::string source = ReadFile(filepath);		
+		auto shaderSources = PreProcess(source);		
+		Compile(shaderSources);		
 
 		// Extract name from filepath
 		auto lastSlash = filepath.find_last_of("/\\");
@@ -105,7 +101,6 @@ namespace GameEngine
 			GE_CORE_ASSERT(eol != std::string::npos, "Syntax error");
 			size_t begin = pos + typeTokenLength + 1; //Start of shader type name (after "#type " keyword)
 			std::string type = source.substr(begin, eol - begin);
-			GE_CORE_INFO("Found shader type: '{0}' (length: {1})", type, type.size());
 			GE_CORE_ASSERT(ShaderTypeFromString(type), "Invalid shader type specified");
 
 			size_t nextLinePos = source.find_first_not_of("\r\n", eol); //Start of shader code after shader type declaration line

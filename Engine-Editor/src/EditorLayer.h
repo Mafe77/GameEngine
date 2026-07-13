@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameEngine.h"
+#include "Panels/SceneHierarchyPanel.h"
 
 namespace GameEngine
 {
@@ -30,6 +31,8 @@ namespace GameEngine
 		Entity m_SquareEntity;
 		Entity m_CameraEntity;
 		Entity m_SecondCamera;
+
+		SceneHierarchyPanel m_SceneHierarchyPanel;
 
 		bool m_PrimaryCamera = true;
 

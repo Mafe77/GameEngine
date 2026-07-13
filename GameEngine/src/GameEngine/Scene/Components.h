@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 
 #include "GameEngine/Scene/SceneCamera.h"
+#include "GameEngine/Scene/ScriptableEntity.h"
 
 namespace GameEngine
 {
@@ -47,5 +48,20 @@ namespace GameEngine
 
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;		
+	};
+
+	struct NativeScriptComponent
+	{
+		ScriptableEntity* Instance = nullptr;
+
+		ScriptableEntity*(*InstantiateScript) ();
+		void (*DestroyScript)(NativeScriptComponent*);
+
+		template<typename T>
+		void Bind()
+		{
+			InstantiateScript = []() { return static_cast<ScriptableEntity*>(new T()); };
+			DestroyScript = [](NativeScriptComponent* nsc) { delete nsc->Instance; nsc->Instance = nullptr; };
+		}
 	};
 }
