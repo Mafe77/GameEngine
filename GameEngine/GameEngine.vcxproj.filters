@@ -1542,5 +1542,6 @@
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\Scene\SceneCamera.cpp" />
+    <ClCompile Include="src\GameEngine\Renderer\GraphicsContext.cpp" />
   </ItemGroup>
 </Project>

@@ -86,6 +86,10 @@ namespace GameEngine
 	{
 		GE_PROFILE_FUNCTION();
 
+		m_SceneHierarchyPanel.ProcessDeletions();
+
+		//GE_CORE_INFO("Entity count before render: {0}", m_ActiveScene->GetEntityCount());
+
 		// Resize
 		if (FramebufferSpec spec = m_Framebuffer->GetSpecification();
 			m_ViewportSize.x > 0.0f && m_ViewportSize.y > 0.0f && // zero sized framebuffer is invalid
@@ -107,10 +111,7 @@ namespace GameEngine
 		RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		RenderCommand::Clear();
 
-		//Renderer2D::BeginScene(m_CameraController.GetCamera());
 		m_ActiveScene->OnUpdate(ts);
-
-		//Renderer2D::EndScene();
 
 		m_Framebuffer->Unbind();
 	}
@@ -189,6 +190,7 @@ namespace GameEngine
 		ImGui::Text("Quads: %d", stats.QuadCount);
 		ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
 		ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
+		ImGui::Text("Entity count: %d", m_ActiveScene->GetEntityCount());
 
 		ImGui::End();
 
@@ -203,7 +205,7 @@ namespace GameEngine
 		m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
 
 		uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
-		ImGui::Image((void*)textureID, ImVec2{ m_ViewportSize.x, m_ViewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+		ImGui::Image(reinterpret_cast<void*>(textureID), ImVec2{ m_ViewportSize.x, m_ViewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 		ImGui::End();
 		ImGui::PopStyleVar();
 

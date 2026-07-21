@@ -18,6 +18,7 @@ namespace GameEngine
 		void SetContext(const Ref<Scene>& scene);
 
 		void OnImGuiRender();
+		void ProcessDeletions();
 
 	private:
 		void DrawEntityNode(Entity entity);
@@ -26,5 +27,6 @@ namespace GameEngine
 	private:
 		Ref<Scene> m_Context;
 		Entity m_SelectionContext;
+
 	};
 }

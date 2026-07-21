@@ -28,6 +28,16 @@ namespace GameEngine
 		return entity;
 	}
 
+	void Scene::DestroyEntity(Entity entity)
+	{
+		auto& tag = entity.GetComponent<TagComponent>().Tag;
+		GE_CORE_INFO("Destroying entity: {0}", tag.c_str());
+		m_Registry.destroy(entity);
+
+		if (!m_Registry.valid(entity))
+			GE_CORE_WARN("Entity destroyed");
+	}
+
 	void Scene::OnUpdate(Timestep ts)
 	{
 		// update scripts
@@ -47,33 +57,30 @@ namespace GameEngine
 
 
 		Camera* mainCamera = nullptr;
-		glm::mat4* cameraTransform;
+		glm::mat4 cameraTransformMatrix;
+		glm::mat4* cameraTransform = nullptr;
 		{
 			auto view = m_Registry.view<TransformComponent, CameraComponent>(); 
-			for (auto entity : view)
-			{
-				auto [transform, camera] = view.get<TransformComponent, CameraComponent>(entity);
-
-				if (camera.Primary)
+			view.each([&](auto entity, auto& transform, auto& camera)
 				{
-					mainCamera = &camera.Camera;
-					cameraTransform = &transform.GetTransform();
-					break;
-				}
-			}
+					if (camera.Primary)
+					{
+						mainCamera = &camera.Camera;
+						cameraTransformMatrix = transform.GetTransform(); 
+						cameraTransform = &cameraTransformMatrix;        
+					}
+				});
 		}
 
 		if (mainCamera)
 		{
 			Renderer2D::BeginScene(*mainCamera, *cameraTransform);
 
-			auto group = m_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
-			for (auto entity : group)
-			{
-				auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
-
-				Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color);
-			}
+			m_Registry.view<TransformComponent, SpriteRendererComponent>().each([](auto& transform, auto& sprite)
+				{
+					//GE_CORE_INFO("Drawing sprite entity");
+					Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color);
+				});
 
 			Renderer2D::EndScene();
 		}
@@ -96,6 +103,52 @@ namespace GameEngine
 		}
 
 
+	}
+
+	uint32_t Scene::GetEntityCount()
+	{
+		uint32_t count = 0;
+		for (auto entity : m_Registry.storage<entt::entity>())
+			count++;
+		return count;
+	}
+
+
+	template<typename T>
+	void Scene::OnComponentAdded(Entity entity, T& component)
+	{
+		static_assert(false);
+	}
+
+	template<>
+	void Scene::OnComponentAdded<TransformComponent>(Entity entity, TransformComponent& component)
+	{
+	}
+
+	template<>
+	void Scene::OnComponentAdded<CameraComponent>(Entity entity, CameraComponent& component)
+	{
+		component.Camera.SetViewportSize(m_ViewportWidth, m_ViewportHeight);
+	}
+
+	template<>
+	void Scene::OnComponentAdded<SpriteRendererComponent>(Entity entity, SpriteRendererComponent& component)
+	{
+		/*m_Registry.view<TransformComponent, SpriteRendererComponent>().each([](auto& transform, auto& sprite)
+			{
+				Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color);
+			});*/
+		
+	}
+
+	template<>
+	void Scene::OnComponentAdded<TagComponent>(Entity entity, TagComponent& component)
+	{
+	}
+
+	template<>
+	void Scene::OnComponentAdded<NativeScriptComponent>(Entity entity, NativeScriptComponent& component)
+	{
 	}
 
 }
