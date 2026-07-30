@@ -38,7 +38,7 @@ namespace GameEngine
 			GE_CORE_WARN("Entity destroyed");
 	}
 
-	void Scene::OnUpdate(Timestep ts)
+	void Scene::OnUpdateRuntime(Timestep ts)
 	{
 		// update scripts
 		{
@@ -84,6 +84,19 @@ namespace GameEngine
 
 			Renderer2D::EndScene();
 		}
+	}
+
+	void Scene::OnUpdateEditor(Timestep ts, EditorCamera& camera)
+	{
+		Renderer2D::BeginScene(camera);
+
+		m_Registry.view<TransformComponent, SpriteRendererComponent>().each([](auto& transform, auto& sprite)
+			{
+				//GE_CORE_INFO("Drawing sprite entity");
+				Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color);
+			});
+
+		Renderer2D::EndScene();
 	}
 
 	void Scene::OnViewportResize(uint32_t width, uint32_t height)

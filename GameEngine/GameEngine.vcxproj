@@ -173,6 +173,7 @@
     <ClInclude Include="src\GameEngine\Math\Math.h" />
     <ClInclude Include="src\GameEngine\Renderer\Buffer.h" />
     <ClInclude Include="src\GameEngine\Renderer\Camera.h" />
+    <ClInclude Include="src\GameEngine\Renderer\EditorCamera.h" />
     <ClInclude Include="src\GameEngine\Renderer\Framebuffer.h" />
     <ClInclude Include="src\GameEngine\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\GameEngine\Renderer\OrthographicCamera.h" />
@@ -631,6 +632,7 @@
     <ClCompile Include="src\GameEngine\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\GameEngine\Math\Math.cpp" />
     <ClCompile Include="src\GameEngine\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\GameEngine\Renderer\EditorCamera.cpp" />
     <ClCompile Include="src\GameEngine\Renderer\Framebuffer.cpp" />
     <ClCompile Include="src\GameEngine\Renderer\GraphicsContext.cpp" />
     <ClCompile Include="src\GameEngine\Renderer\OrthographicCamera.cpp" />

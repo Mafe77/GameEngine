@@ -3,6 +3,8 @@
 #include "GameEngine.h"
 #include "Panels/SceneHierarchyPanel.h"
 
+#include "GameEngine/Renderer/EditorCamera.h"
+
 namespace GameEngine
 {
 	class EditorLayer : public Layer
@@ -42,6 +44,8 @@ namespace GameEngine
 		SceneHierarchyPanel m_SceneHierarchyPanel;
 
 		bool m_PrimaryCamera = true;
+
+		EditorCamera m_EditorCamera;
 
 		bool m_ViewportFocused = false, m_ViewportHovered = false;
 		glm::vec2 m_ViewportSize = {0.0f, 0.0f};
