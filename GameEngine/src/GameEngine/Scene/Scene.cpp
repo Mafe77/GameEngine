@@ -105,6 +105,20 @@ namespace GameEngine
 
 	}
 
+	Entity Scene::GetPrimaryCameraEntity()
+	{
+		auto view = m_Registry.view<CameraComponent>();
+
+		for (auto entity : view)
+		{
+			const auto& camera = view.get<CameraComponent>(entity);
+			if (camera.Primary)
+				return Entity{ entity, this };
+		}
+		
+		return {};
+	}
+
 	uint32_t Scene::GetEntityCount()
 	{
 		uint32_t count = 0;

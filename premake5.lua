@@ -19,11 +19,14 @@ IncludeDir["ImGui"] = "GameEngine/vendor/imgui"
 IncludeDir["glm"] = "GameEngine/vendor/glm"
 IncludeDir["stb_image"] = "GameEngine/vendor/stb_image"
 IncludeDir["entt"] = "GameEngine/vendor/entt/include"
+IncludeDir["yaml_cpp"] = "GameEngine/vendor/yaml-cpp/include"
+IncludeDir["ImGuizmo"] = "GameEngine/vendor/ImGuizmo"
 
 group "Dependencies"
     include "GameEngine/vendor/GLFW"
     include "GameEngine/vendor/Glad"
     include "GameEngine/vendor/imgui"
+    include "GameEngine/vendor/yaml-cpp"
 
 group ""
 
@@ -48,11 +51,15 @@ project "GameEngine"
 		"%{prj.name}/vendor/stb_image/**.cpp",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl",
+
+        "%{prj.name}/vendor/ImGuizmo/ImGuizmo.h",
+        "%{prj.name}/vendor/ImGuizmo/ImGuizmo.cpp"
     }
 
     defines
 	{
-		"_CRT_SECURE_NO_WARNINGS"
+		"_CRT_SECURE_NO_WARNINGS",
+        "YAML_CPP_STATIC_DEFINE"
 	}
 
     includedirs
@@ -64,7 +71,9 @@ project "GameEngine"
         "%{IncludeDir.ImGui}",
         "%{IncludeDir.glm}",
         "%{IncludeDir.stb_image}",
-        "%{IncludeDir.entt}"
+        "%{IncludeDir.entt}",
+        "%{IncludeDir.yaml_cpp}",
+        "%{IncludeDir.ImGuizmo}"
     }
 
     links
@@ -72,8 +81,13 @@ project "GameEngine"
         "GLFW",
         "Glad",
         "ImGui",
+        "yaml-cpp",
         "opengl32.lib"
     }
+
+    filter "files:GameEngine/vendor/ImGuizmo/**.cpp"
+        enablepch "Off"
+    
 
     filter "system:windows"
         systemversion "latest"
@@ -123,7 +137,8 @@ project "Sandbox"
         "GameEngine/src",
         "GameEngine/vendor",
         "%{IncludeDir.glm}",
-        "%{IncludeDir.entt}"
+        "%{IncludeDir.entt}",
+        "%{IncludeDir.ImGuizmo}"
     }
 
     links
@@ -177,7 +192,10 @@ project "Engine-Editor"
         "GameEngine/src",
         "GameEngine/vendor",
         "%{IncludeDir.glm}",
-        "%{IncludeDir.entt}"
+        "%{IncludeDir.entt}",
+        "%{IncludeDir.yaml_cpp}",
+        "%{IncludeDir.ImGuizmo}"
+
     }
 
     links

@@ -1,6 +1,5 @@
 #pragma once
 
-
 namespace GameEngine
 {
 	class GraphicsContext

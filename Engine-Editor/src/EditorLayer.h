@@ -19,6 +19,13 @@ namespace GameEngine
 		void OnEvent(Event& e) override;
 
 	private:
+		bool OnKeyPressed(KeyPressedEvent& e);
+
+		void NewScene();
+		void OpenScene();
+		void SaveSceneAs();
+
+	private:
 		OrthographicCameraController m_CameraController;
 	
 		// Temp
@@ -40,6 +47,8 @@ namespace GameEngine
 		glm::vec2 m_ViewportSize = {0.0f, 0.0f};
 
 		glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
+
+		int m_GizmoType = -1;
 	};
 
 }
