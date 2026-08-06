@@ -76,10 +76,10 @@ namespace GameEngine
 		{
 			Renderer2D::BeginScene(*mainCamera, *cameraTransform);
 
-			m_Registry.view<TransformComponent, SpriteRendererComponent>().each([](auto& transform, auto& sprite)
+			m_Registry.view<TransformComponent, SpriteRendererComponent>().each([](auto entity, auto& transform, auto& sprite)
 				{
 					//GE_CORE_INFO("Drawing sprite entity");
-					Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color);
+					Renderer2D::DrawSprite(transform.GetTransform(), sprite, (int)entity);
 				});
 
 			Renderer2D::EndScene();
@@ -90,10 +90,10 @@ namespace GameEngine
 	{
 		Renderer2D::BeginScene(camera);
 
-		m_Registry.view<TransformComponent, SpriteRendererComponent>().each([](auto& transform, auto& sprite)
+		m_Registry.view<TransformComponent, SpriteRendererComponent>().each([](auto entity, auto& transform, auto& sprite)
 			{
 				//GE_CORE_INFO("Drawing sprite entity");
-				Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color);
+				Renderer2D::DrawSprite(transform.GetTransform(), sprite, (int)entity);
 			});
 
 		Renderer2D::EndScene();

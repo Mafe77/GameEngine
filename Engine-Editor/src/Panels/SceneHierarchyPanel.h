@@ -16,6 +16,7 @@ namespace GameEngine
 		SceneHierarchyPanel(const Ref<Scene>& scene);
 
 		void SetContext(const Ref<Scene>& scene);
+		void SetSelectedEntity(Entity& entity);
 
 		void OnImGuiRender();
 
