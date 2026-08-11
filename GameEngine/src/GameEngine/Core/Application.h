@@ -13,10 +13,22 @@
 
 namespace GameEngine
 {
+	struct ApplicationCommandLineArgs
+	{
+		int Count = 0;
+		char** Args = nullptr;
+
+		const char* operator[](int index) const
+		{
+			GE_CORE_ASSERT(index < Count, "AppCommandArgs");
+			return Args[index];
+		}
+	};
+
 	class Application
 	{
 	public:
-		Application(const std::string& name = "Game Engine");
+		Application(const std::string& name = "Game Engine", ApplicationCommandLineArgs args = ApplicationCommandLineArgs());
 		virtual ~Application();
 
 		void Run();
@@ -27,6 +39,8 @@ namespace GameEngine
 		void PushOverlay(Layer* overlay);
 
 		inline static Application& Get() { return *s_Instance; }
+
+		ApplicationCommandLineArgs GetCommandLineArgs() const { return m_CommandLineArgs; }
 
 		inline Window& GetWindow() { return *m_Window; }
 
@@ -39,6 +53,7 @@ namespace GameEngine
 		bool OnWindowResize(WindowResizeEvent& e);
 
 	private:
+		ApplicationCommandLineArgs m_CommandLineArgs;
 		Scope<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
@@ -52,7 +67,7 @@ namespace GameEngine
 	};
 
 	// To be defined in Client
-	Application* CreateApplication();
+	Application* CreateApplication(ApplicationCommandLineArgs args);
 }
 
 

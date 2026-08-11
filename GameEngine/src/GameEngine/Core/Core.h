@@ -2,33 +2,26 @@
 
 #include <memory>
 
-#ifdef GE_PLATFORM_WINDOWS
-#if GE_DYNAMIC_LINK
-	#ifdef GE_BUILD_DLL
-		#define ENGINE_API __declspec(dllexport)
+#ifdef GE_DEBUG
+	#if defined(GE_PLATFORM_WINDOWS)
+		#define GE_DEBUGBREAK() __debugbreak()
+	#elif defined(GE_PLATFORM_LINUX)
+		#include <signal.h>
+		#define GE_DEBUGBREAK() raise(SIGTRAP)
 	#else
-		#define ENGINE_API __declspec(dllimport)
+		#error "Platform doesn't support debugbreak yet!"
 	#endif
+	#define GE_ENABLE_ASSERTS
 #else
-	#define ENGINE_API
-#endif
-#else
-	#error Game Engine only supports Windows.
+	#define GE_DEBUGBREAK()
 #endif
 
 #ifdef GE_DEBUG
 	#define GE_ENABLE_ASSERTS
 #endif
 
-
-#ifdef GE_ENABLE_ASSERTS
-#define GE_ASSERT(x, ...) {if(!(x)) {GE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak();}}
-#define GE_CORE_ASSERT(x, ...) {if(!(x)) {GE_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak();}}
-#else
-	#define GE_ASSERT(x, ...)
-	#define GE_CORE_ASSERT(x, ...)
-#endif
-
+#define GE_EXPAND_MACRO(x) x
+#define GE_STRINGIFY_MACRO(x) #x
 
 #define BIT(x) (1 << x)
 
@@ -52,3 +45,6 @@ namespace GameEngine
 		return std::make_shared<T>(std::forward<Args>(args)...);
 	}
 }
+
+#include "GameEngine/Core/Log.h"
+#include "GameEngine/Core/Assert.h"

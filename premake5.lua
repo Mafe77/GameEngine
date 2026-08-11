@@ -11,6 +11,8 @@ workspace "GameEngine"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+VULKAN_SDK = os.getenv("VULKAN_SDK")
+
 -- Include directories relative to the root folder (sol dir)
 IncludeDir = {}
 IncludeDir["GLFW"] = "GameEngine/vendor/GLFW/include"
@@ -21,6 +23,26 @@ IncludeDir["stb_image"] = "GameEngine/vendor/stb_image"
 IncludeDir["entt"] = "GameEngine/vendor/entt/include"
 IncludeDir["yaml_cpp"] = "GameEngine/vendor/yaml-cpp/include"
 IncludeDir["ImGuizmo"] = "GameEngine/vendor/ImGuizmo"
+IncludeDir["shaderc"] = "%{wks.location}/Hazel/vendor/shaderc/include"
+IncludeDir["SPIRV_Cross"] = "%{wks.location}/Hazel/vendor/SPIRV-Cross"
+IncludeDir["VulkanSDK"] = "%{VULKAN_SDK}/Include"
+
+LibraryDir = {}
+LibraryDir["VulkanSDK"] = "%{VULKAN_SDK}/Lib"
+LibraryDir["VulkanSDK_Debug"] = "%{VULKAN_SDK}/Lib"
+
+Library = {}
+Library["Vulkan"] = "%{LibraryDir.VulkanSDK}/vulkan-1.lib"
+Library["VulkanUtils"] = "%{LibraryDir.VulkanSDK}/VkLayer_utils.lib"
+
+Library["ShaderC_Debug"] = "%{LibraryDir.VulkanSDK_Debug}/shaderc_sharedd.lib"
+Library["SPIRV_Cross_Debug"] = "%{LibraryDir.VulkanSDK_Debug}/spirv-cross-cored.lib"
+Library["SPIRV_Cross_GLSL_Debug"] = "%{LibraryDir.VulkanSDK_Debug}/spirv-cross-glsld.lib"
+Library["SPIRV_Tools_Debug"] = "%{LibraryDir.VulkanSDK_Debug}/SPIRV-Toolsd.lib"
+
+Library["ShaderC_Release"] = "%{LibraryDir.VulkanSDK}/shaderc_shared.lib"
+Library["SPIRV_Cross_Release"] = "%{LibraryDir.VulkanSDK}/spirv-cross-core.lib"
+Library["SPIRV_Cross_GLSL_Release"] = "%{LibraryDir.VulkanSDK}/spirv-cross-glsl.lib"
 
 group "Dependencies"
     include "GameEngine/vendor/GLFW"
@@ -35,7 +57,7 @@ project "GameEngine"
     kind "StaticLib"
     language "C++"
     cppdialect "C++17"
-    staticruntime "on"
+    staticruntime "off"
 
     targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
     objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
@@ -73,7 +95,8 @@ project "GameEngine"
         "%{IncludeDir.stb_image}",
         "%{IncludeDir.entt}",
         "%{IncludeDir.yaml_cpp}",
-        "%{IncludeDir.ImGuizmo}"
+        "%{IncludeDir.ImGuizmo}",
+        "%{IncludeDir.VulkanSDK}"
     }
 
     links
@@ -105,22 +128,43 @@ project "GameEngine"
         runtime "Debug"
         symbols "on"
 
+        links
+		{
+			"%{Library.ShaderC_Debug}",
+			"%{Library.SPIRV_Cross_Debug}",
+			"%{Library.SPIRV_Cross_GLSL_Debug}"
+		}
+
     filter "configurations:Release"
         defines "GE_RELEASE"
         runtime "Release"
         optimize "on"
+
+        links
+		{
+			"%{Library.ShaderC_Release}",
+			"%{Library.SPIRV_Cross_Release}",
+			"%{Library.SPIRV_Cross_GLSL_Release}"
+		}
 
     filter "configurations:Dist"
         defines "GE_DIST"
         runtime "Release"
         optimize "on"
 
+        links
+		{
+			"%{Library.ShaderC_Release}",
+			"%{Library.SPIRV_Cross_Release}",
+			"%{Library.SPIRV_Cross_GLSL_Release}"
+		}
+
 project "Sandbox"
     location "Sandbox"
     kind "ConsoleApp"
     language "C++"
     cppdialect "C++17"
-    staticruntime "on"
+    staticruntime "off"
 
     targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
     objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
@@ -159,15 +203,30 @@ project "Sandbox"
         runtime "Debug"
         symbols "on"
 
+        postbuildcommands
+        {
+            '{COPY} "%{VULKAN_SDK}/Bin/shaderc_sharedd.dll" "%{cfg.targetdir}"'
+        }
+
     filter "configurations:Release"
         defines "GE_RELEASE"
         runtime "Release"
         optimize "on"
 
+        postbuildcommands
+        {
+            '{COPY} "%{VULKAN_SDK}/Bin/shaderc_shared.dll" "%{cfg.targetdir}"'
+        }
+
     filter "configurations:Dist"
         defines "GE_DIST"
         runtime "Release"
         optimize "on"
+
+        postbuildcommands
+        {
+            '{COPY} "%{VULKAN_SDK}/Bin/shaderc_shared.dll" "%{cfg.targetdir}"'
+        }
 
 
 project "Engine-Editor"
@@ -175,7 +234,7 @@ project "Engine-Editor"
     kind "ConsoleApp"
     language "C++"
     cppdialect "C++17"
-    staticruntime "on"
+    staticruntime "off"
 
     targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
     objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
@@ -216,12 +275,27 @@ project "Engine-Editor"
         runtime "Debug"
         symbols "on"
 
+        postbuildcommands
+        {
+            '{COPY} "%{VULKAN_SDK}/Bin/shaderc_sharedd.dll" "%{cfg.targetdir}"'
+        }
+
     filter "configurations:Release"
         defines "GE_RELEASE"
         runtime "Release"
         optimize "on"
 
+        postbuildcommands
+        {
+            '{COPY} "%{VULKAN_SDK}/Bin/shaderc_shared.dll" "%{cfg.targetdir}"'
+        }
+
     filter "configurations:Dist"
         defines "GE_DIST"
         runtime "Release"
         optimize "on"
+
+        postbuildcommands
+        {
+            '{COPY} "%{VULKAN_SDK}/Bin/shaderc_shared.dll" "%{cfg.targetdir}"'
+        }

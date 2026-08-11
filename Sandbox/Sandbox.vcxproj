@@ -82,7 +82,7 @@
       <AdditionalIncludeDirectories>..\GameEngine\vendor\spdlog\include;..\GameEngine\src;..\GameEngine\vendor;..\GameEngine\vendor\glm;..\GameEngine\vendor\entt\include;..\GameEngine\vendor\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
@@ -93,6 +93,9 @@
     </Link>
     <ProjectReference>
     </ProjectReference>
+    <PostBuildEvent>
+      <Command>IF EXIST "..\GameEngine\vendor\VulkanSDK\Bin\shaderc_sharedd.dll"\ (xcopy /Q /E /Y /I "..\GameEngine\vendor\VulkanSDK\Bin\shaderc_sharedd.dll" "..\bin\Debug-windows-x86_64\Sandbox" &gt; nul) ELSE (xcopy /Q /Y /I "..\GameEngine\vendor\VulkanSDK\Bin\shaderc_sharedd.dll" "..\bin\Debug-windows-x86_64\Sandbox" &gt; nul)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -105,7 +108,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
@@ -117,6 +120,9 @@
     </Link>
     <ProjectReference>
     </ProjectReference>
+    <PostBuildEvent>
+      <Command>IF EXIST "..\GameEngine\vendor\VulkanSDK\Bin\shaderc_shared.dll"\ (xcopy /Q /E /Y /I "..\GameEngine\vendor\VulkanSDK\Bin\shaderc_shared.dll" "..\bin\Release-windows-x86_64\Sandbox" &gt; nul) ELSE (xcopy /Q /Y /I "..\GameEngine\vendor\VulkanSDK\Bin\shaderc_shared.dll" "..\bin\Release-windows-x86_64\Sandbox" &gt; nul)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
     <ClCompile>
@@ -129,7 +135,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
@@ -141,6 +147,9 @@
     </Link>
     <ProjectReference>
     </ProjectReference>
+    <PostBuildEvent>
+      <Command>IF EXIST "..\GameEngine\vendor\VulkanSDK\Bin\shaderc_shared.dll"\ (xcopy /Q /E /Y /I "..\GameEngine\vendor\VulkanSDK\Bin\shaderc_shared.dll" "..\bin\Dist-windows-x86_64\Sandbox" &gt; nul) ELSE (xcopy /Q /Y /I "..\GameEngine\vendor\VulkanSDK\Bin\shaderc_shared.dll" "..\bin\Dist-windows-x86_64\Sandbox" &gt; nul)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Sandbox2D.h" />

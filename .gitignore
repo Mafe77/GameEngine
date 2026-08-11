@@ -3,6 +3,11 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+
+# directories
+GameEngine/vendor/VulkanSDK
+GameEngine/assets/cache
+
 # bin folders
 bin/
 bin-int/

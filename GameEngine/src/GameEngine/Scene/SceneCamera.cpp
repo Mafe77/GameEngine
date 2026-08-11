@@ -30,6 +30,7 @@ namespace GameEngine
 
 	void SceneCamera::SetViewportSize(uint32_t width, uint32_t height)
 	{
+		GE_CORE_ASSERT(width > 0 && height > 0, "SetViewportSize SceneCamera");
 		m_AspectRatio = (float)width / (float)height;
 		RecalculateProjection();
 	}

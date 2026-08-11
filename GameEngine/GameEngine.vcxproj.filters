@@ -19,6 +19,9 @@
     <Filter Include="src\GameEngine\ImGui">
       <UniqueIdentifier>{B69AA22D-A229-2CF7-4B48-40F237B63C9D}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GameEngine\Math">
+      <UniqueIdentifier>{E5086401-516A-410F-DAD7-87C1463878CE}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\GameEngine\Renderer">
       <UniqueIdentifier>{B20D7C77-1E45-C40E-274F-28329305EB07}</UniqueIdentifier>
     </Filter>
@@ -72,6 +75,9 @@
     <ClInclude Include="src\GameEngine\Core\Application.h">
       <Filter>src\GameEngine\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameEngine\Core\Assert.h">
+      <Filter>src\GameEngine\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\GameEngine\Core\Core.h">
       <Filter>src\GameEngine\Core</Filter>
     </ClInclude>
@@ -94,6 +100,9 @@
       <Filter>src\GameEngine\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Core\MouseButtonCodes.h">
+      <Filter>src\GameEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Core\Timer.h">
       <Filter>src\GameEngine\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Core\Timestep.h">
@@ -120,10 +129,16 @@
     <ClInclude Include="src\GameEngine\ImGui\ImGuiLayer.h">
       <Filter>src\GameEngine\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="src\GameEngine\Math\Math.h">
+      <Filter>src\GameEngine\Math</Filter>
+    </ClInclude>
     <ClInclude Include="src\GameEngine\Renderer\Buffer.h">
       <Filter>src\GameEngine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Renderer\Camera.h">
+      <Filter>src\GameEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Renderer\EditorCamera.h">
       <Filter>src\GameEngine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Renderer\Framebuffer.h">
@@ -154,6 +169,9 @@
       <Filter>src\GameEngine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Renderer\Texture.h">
+      <Filter>src\GameEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Renderer\UniformBuffer.h">
       <Filter>src\GameEngine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Renderer\VertexArray.h">
@@ -196,6 +214,9 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLUniformBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h">
@@ -1470,8 +1491,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Math\Math.h" />
-    <ClInclude Include="src\GameEngine\Renderer\EditorCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Core\Application.cpp">
@@ -1492,7 +1511,13 @@
     <ClCompile Include="src\GameEngine\ImGui\ImGuiLayer.cpp">
       <Filter>src\GameEngine\ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameEngine\Math\Math.cpp">
+      <Filter>src\GameEngine\Math</Filter>
+    </ClCompile>
     <ClCompile Include="src\GameEngine\Renderer\Buffer.cpp">
+      <Filter>src\GameEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine\Renderer\EditorCamera.cpp">
       <Filter>src\GameEngine\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\Renderer\Framebuffer.cpp">
@@ -1523,6 +1548,9 @@
       <Filter>src\GameEngine\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\Renderer\Texture.cpp">
+      <Filter>src\GameEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine\Renderer\UniformBuffer.cpp">
       <Filter>src\GameEngine\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\Renderer\VertexArray.cpp">
@@ -1558,6 +1586,9 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLUniformBuffer.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
@@ -1579,7 +1610,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Math\Math.cpp" />
-    <ClCompile Include="src\GameEngine\Renderer\EditorCamera.cpp" />
   </ItemGroup>
 </Project>
