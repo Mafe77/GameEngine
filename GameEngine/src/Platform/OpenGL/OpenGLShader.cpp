@@ -134,7 +134,7 @@ namespace GameEngine
 		GE_PROFILE_FUNCTION();
 
 		std::string result;
-		std::ifstream in(filepath, std::ios::in | std::ios::binary);
+		std::ifstream in(filepath, std::ios::in | std::ios::binary); // ifstream closes itself due to RAII
 		if (in)
 		{
 			in.seekg(0, std::ios::end);
@@ -144,7 +144,6 @@ namespace GameEngine
 				result.resize(size);
 				in.seekg(0, std::ios::beg);
 				in.read(&result[0], size);
-				in.close();
 			}
 			else
 			{
@@ -156,7 +155,6 @@ namespace GameEngine
 			GE_CORE_ERROR("Could not open file '{0}'", filepath);
 		}
 
-		result.erase(std::remove(result.begin(), result.end(), '\r'), result.end());
 		return result;
 	}
 
@@ -234,7 +232,7 @@ namespace GameEngine
 
 				shaderData[stage] = std::vector<uint32_t>(module.cbegin(), module.cend());
 
-				std::ofstream out(cachedPath, std::ios::in | std::ios::binary);
+				std::ofstream out(cachedPath, std::ios::out | std::ios::binary);
 				if (out.is_open())
 				{
 					auto& data = shaderData[stage];
@@ -245,7 +243,7 @@ namespace GameEngine
 			}
 		}
 
-		for (auto& [stage, data] : shaderData)
+		for (auto&& [stage, data] : shaderData)
 			Reflect(stage, data);
 	}
 
@@ -300,7 +298,7 @@ namespace GameEngine
 
 				shaderData[stage] = std::vector<uint32_t>(module.cbegin(), module.cend());
 
-				std::ofstream out(cachedPath, std::ios::in | std::ios::binary);
+				std::ofstream out(cachedPath, std::ios::out | std::ios::binary);
 				if (out.is_open())
 				{
 					auto& data = shaderData[stage];
