@@ -105,7 +105,6 @@ namespace GameEngine
 
 		// Extract name from filepath
 		m_Name = std::filesystem::path(filepath).stem().string();
-		GE_CORE_INFO("name from filepath: {0}", m_Name);
 	}
 
 	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)

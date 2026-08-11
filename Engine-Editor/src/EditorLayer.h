@@ -2,6 +2,7 @@
 
 #include "GameEngine.h"
 #include "Panels/SceneHierarchyPanel.h"
+#include "Panels/ContentBrowserPanel.h"
 
 #include "GameEngine/Renderer/EditorCamera.h"
 
@@ -26,6 +27,7 @@ namespace GameEngine
 
 		void NewScene();
 		void OpenScene();
+		void OpenScene(const std::filesystem::path& path);
 		void SaveSceneAs();
 
 	private:
@@ -44,7 +46,9 @@ namespace GameEngine
 
 		Entity m_HoveredEntity;
 
+		// Panels
 		SceneHierarchyPanel m_SceneHierarchyPanel;
+		ContentBrowserPanel m_ContentBrowserPanel;
 
 		bool m_PrimaryCamera = true;
 
