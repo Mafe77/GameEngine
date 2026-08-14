@@ -194,7 +194,17 @@ namespace GameEngine
 		std::stringstream strStream;
 		strStream << stream.rdbuf();
 
-		YAML::Node data = YAML::Load(strStream.str());
+		YAML::Node data;
+
+		try
+		{
+			data = YAML::LoadFile(filepath);
+		}
+		catch (YAML::ParserException e)
+		{
+			return false;
+		}
+
 		if (!data["Scene"])
 			return false;
 
