@@ -23,9 +23,10 @@ IncludeDir["stb_image"] = "GameEngine/vendor/stb_image"
 IncludeDir["entt"] = "GameEngine/vendor/entt/include"
 IncludeDir["yaml_cpp"] = "GameEngine/vendor/yaml-cpp/include"
 IncludeDir["ImGuizmo"] = "GameEngine/vendor/ImGuizmo"
-IncludeDir["shaderc"] = "%{wks.location}/Hazel/vendor/shaderc/include"
-IncludeDir["SPIRV_Cross"] = "%{wks.location}/Hazel/vendor/SPIRV-Cross"
+IncludeDir["shaderc"] = "GameEngine/vendor/shaderc/include"
+IncludeDir["SPIRV_Cross"] = "GameEngine/vendor/SPIRV-Cross"
 IncludeDir["VulkanSDK"] = "%{VULKAN_SDK}/Include"
+IncludeDir["Box2D"] = "GameEngine/vendor/Box2D/include"
 
 LibraryDir = {}
 LibraryDir["VulkanSDK"] = "%{VULKAN_SDK}/Lib"
@@ -49,6 +50,7 @@ group "Dependencies"
     include "GameEngine/vendor/Glad"
     include "GameEngine/vendor/imgui"
     include "GameEngine/vendor/yaml-cpp"
+    include "GameEngine/vendor/Box2D"
 
 group ""
 
@@ -96,7 +98,8 @@ project "GameEngine"
         "%{IncludeDir.entt}",
         "%{IncludeDir.yaml_cpp}",
         "%{IncludeDir.ImGuizmo}",
-        "%{IncludeDir.VulkanSDK}"
+        "%{IncludeDir.VulkanSDK}",
+        "%{IncludeDir.Box2D}"
     }
 
     links
@@ -105,7 +108,8 @@ project "GameEngine"
         "Glad",
         "ImGui",
         "yaml-cpp",
-        "opengl32.lib"
+        "opengl32.lib",
+        "Box2D"
     }
 
     filter "files:GameEngine/vendor/ImGuizmo/**.cpp"

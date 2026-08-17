@@ -11,6 +11,26 @@
 
 namespace YAML
 {
+	template<>
+	struct convert<glm::vec2>
+	{
+		static Node encode(const glm::vec2& rhs)
+		{
+			Node node;
+			node.push_back(rhs.x);
+			node.push_back(rhs.y);
+			node.SetStyle(EmitterStyle::Flow);
+			return node;
+		}
+		static bool decode(const Node& node, glm::vec2& rhs)
+		{
+			if (!node.IsSequence() || node.size() != 2)
+				return false;
+			rhs.x = node[0].as<float>();
+			rhs.y = node[1].as<float>();
+			return true;
+		}
+	};
 
 	template<>
 	struct convert<glm::vec3>
@@ -68,6 +88,13 @@ namespace YAML
 namespace GameEngine
 {
 
+	YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec2& v)
+	{
+		out << YAML::Flow;
+		out << YAML::BeginSeq << v.x << v.y << YAML::EndSeq;
+		return out;
+	}
+
 	YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec3& v)
 	{
 		out << YAML::Flow;
@@ -86,6 +113,29 @@ namespace GameEngine
 		: m_Scene(scene)
 	{
 
+	}
+
+	static std::string Rigidbody2DBodyTypeToString(Rigidbody2DComponent::BodyType bodyType)
+	{
+		switch (bodyType)
+		{
+		case Rigidbody2DComponent::BodyType::Static:    return "Static";
+		case Rigidbody2DComponent::BodyType::Dynamic:   return "Dynamic";
+		case Rigidbody2DComponent::BodyType::Kinematic: return "Kinematic";
+		}
+
+		GE_CORE_ASSERT(false, "Unknown body type.");
+		return {};
+	}
+
+	static Rigidbody2DComponent::BodyType RigidBody2DBodyTypeFromString(const std::string& bodyTypeString)
+	{
+		if (bodyTypeString == "Static")    return Rigidbody2DComponent::BodyType::Static;
+		if (bodyTypeString == "Dynamic")   return Rigidbody2DComponent::BodyType::Dynamic;
+		if (bodyTypeString == "Kinematic") return Rigidbody2DComponent::BodyType::Kinematic;
+
+		GE_CORE_ASSERT(false, "Unknown body type");
+		return Rigidbody2DComponent::BodyType::Static;
 	}
 	
 	static void SerializeEntity(YAML::Emitter& out, Entity entity)
@@ -152,6 +202,34 @@ namespace GameEngine
 			out << YAML::Key << "Color" << YAML::Value << spriteComponent.Color;
 
 			out << YAML::EndMap; // sprite comp
+		}
+
+		if (entity.HasComponent<Rigidbody2DComponent>())
+		{
+			out << YAML::Key << "Rigidbody2DComponent";
+			out << YAML::BeginMap; // rigid comp
+
+			auto& rigidComponent = entity.GetComponent<Rigidbody2DComponent>();
+			out << YAML::Key << "BodyType" << YAML::Value << Rigidbody2DBodyTypeToString(rigidComponent.Type);
+			out << YAML::Key << "FixedRotation" << YAML::Value << rigidComponent.FixedRotation;
+
+			out << YAML::EndMap; // rigid comp
+		}
+
+		if (entity.HasComponent<BoxCollider2DComponent>())
+		{
+			out << YAML::Key << "BoxCollider2DComponent";
+			out << YAML::BeginMap; // boxCollider comp
+
+			auto& boxComponent = entity.GetComponent<BoxCollider2DComponent>();
+			out << YAML::Key << "Offset" << YAML::Value << boxComponent.Offset;
+			out << YAML::Key << "Size" << YAML::Value << boxComponent.Size;
+			out << YAML::Key << "Density" << YAML::Value << boxComponent.Density;
+			out << YAML::Key << "Friction" << YAML::Value << boxComponent.Friction;
+			out << YAML::Key << "Restitution" << YAML::Value << boxComponent.Restitution;
+			out << YAML::Key << "RestitutionThreshold" << YAML::Value << boxComponent.RestitutionThreshold;
+
+			out << YAML::EndMap; // boxCollider comp
 		}
 
 
@@ -263,6 +341,29 @@ namespace GameEngine
 					auto& src = deserializedEntity.AddComponent<SpriteRendererComponent>();
 					src.Color = spriteComponent["Color"].as<glm::vec4>();
 				}
+
+				auto rigidComponent = entity["Rigidbody2DComponent"];
+				if (rigidComponent)
+				{
+					auto& rb2d = deserializedEntity.AddComponent<Rigidbody2DComponent>();
+					rb2d.Type = RigidBody2DBodyTypeFromString(rigidComponent["BodyType"].as<std::string>());
+					rb2d.FixedRotation = rigidComponent["FixedRotation"].as<bool>();
+
+				}
+
+				auto boxComponent = entity["BoxCollider2DComponent"];
+				if (boxComponent)
+				{
+					auto& bc2d = deserializedEntity.AddComponent<BoxCollider2DComponent>();
+					bc2d.Offset = boxComponent["Offset"].as<glm::vec2>();
+					bc2d.Size = boxComponent["Size"].as<glm::vec2>();
+					bc2d.Density = boxComponent["Density"].as<float>();
+					bc2d.Friction = boxComponent["Friction"].as<float>();
+					bc2d.Restitution = boxComponent["Restitution"].as<float>();
+					bc2d.RestitutionThreshold = boxComponent["RestitutionThreshold"].as<float>();
+				}
+
+
 			}
 		}
 

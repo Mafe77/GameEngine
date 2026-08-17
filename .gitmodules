@@ -16,3 +16,6 @@
 [submodule "GameEngine/vendor/imguizmo"]
 	path = GameEngine/vendor/imguizmo
 	url = https://github.com/TheCherno/imguizmo
+[submodule "GameEngine/vendor/Box2D"]
+	path = GameEngine/vendor/Box2D
+	url = https://github.com/thecherno/box2d
