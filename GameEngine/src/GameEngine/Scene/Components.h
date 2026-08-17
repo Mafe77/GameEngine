@@ -1,17 +1,26 @@
 #pragma once
 
+#include "GameEngine/Core/UUID.h"
+#include "GameEngine/Scene/SceneCamera.h"
+#include "GameEngine/Renderer/Texture.h"
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/quaternion.hpp>
 
-#include "GameEngine/Scene/SceneCamera.h"
-#include "GameEngine/Scene/ScriptableEntity.h"
-#include "GameEngine/Renderer/Texture.h"
 
 namespace GameEngine
 {
+	struct IDComponent
+	{
+		UUID ID;
+
+		IDComponent() = default;
+		IDComponent(const IDComponent&) = default;
+	};
+
 	struct TagComponent
 	{
 		std::string Tag;
@@ -64,6 +73,8 @@ namespace GameEngine
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;		
 	};
+
+	class ScriptableEntity;
 
 	struct NativeScriptComponent
 	{

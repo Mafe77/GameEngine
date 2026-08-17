@@ -2,6 +2,7 @@
 
 #include "entt.hpp"
 #include "GameEngine/Core/Timestep.h"
+#include "GameEngine/Core/UUID.h"
 #include "GameEngine/Renderer/EditorCamera.h"
 
 class b2World;
@@ -17,6 +18,7 @@ namespace GameEngine
 		~Scene();
 
 		Entity CreateEntity(const std::string& name = std::string());
+		Entity CreateEntityWithUUID(UUID uuid, const std::string& name = std::string());
 		void DestroyEntity(Entity entity);
 
 		void OnRuntimeStart();

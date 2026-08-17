@@ -165,6 +165,7 @@
     <ClInclude Include="src\GameEngine\Core\MouseButtonCodes.h" />
     <ClInclude Include="src\GameEngine\Core\Timer.h" />
     <ClInclude Include="src\GameEngine\Core\Timestep.h" />
+    <ClInclude Include="src\GameEngine\Core\UUID.h" />
     <ClInclude Include="src\GameEngine\Core\Window.h" />
     <ClInclude Include="src\GameEngine\Debug\Instrumentor.h" />
     <ClInclude Include="src\GameEngine\Events\ApplicationEvent.h" />
@@ -632,6 +633,7 @@
     <ClCompile Include="src\GameEngine\Core\Layer.cpp" />
     <ClCompile Include="src\GameEngine\Core\LayerStack.cpp" />
     <ClCompile Include="src\GameEngine\Core\Log.cpp" />
+    <ClCompile Include="src\GameEngine\Core\UUID.cpp" />
     <ClCompile Include="src\GameEngine\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\GameEngine\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\GameEngine\Math\Math.cpp" />
