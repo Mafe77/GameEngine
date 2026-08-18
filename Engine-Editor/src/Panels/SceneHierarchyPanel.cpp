@@ -26,24 +26,27 @@ namespace GameEngine {
 	{
 		ImGui::Begin("Scene Hierarchy");
 
-		for (auto entityID : m_Context->m_Registry.storage<entt::entity>())
+		if (m_Context)
 		{
-			if (!m_Context->m_Registry.valid(entityID))
-				continue;
+			for (auto entityID : m_Context->m_Registry.storage<entt::entity>())
+			{
+				if (!m_Context->m_Registry.valid(entityID))
+					continue;
 
-			Entity entity{ entityID, m_Context.get() };
-			DrawEntityNode(entity);
-		}
+				Entity entity{ entityID, m_Context.get() };
+				DrawEntityNode(entity);
+			}
 
-		if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
-			m_SelectionContext = {};
+			if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
+				m_SelectionContext = {};
 
-		if (ImGui::BeginPopupContextWindow(0, 1 | ImGuiPopupFlags_NoOpenOverItems))
-		{
-			if (ImGui::MenuItem("Create Empty Entity"))
-				m_Context->CreateEntity("Empty Entity");
+			if (ImGui::BeginPopupContextWindow(0, 1 | ImGuiPopupFlags_NoOpenOverItems))
+			{
+				if (ImGui::MenuItem("Create Empty Entity"))
+					m_Context->CreateEntity("Empty Entity");
 
-			ImGui::EndPopup();
+				ImGui::EndPopup();
+			}
 		}
 
 		ImGui::End();

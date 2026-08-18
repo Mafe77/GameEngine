@@ -1,29 +1,10 @@
 Scene: Untitled
 Entities:
-  - Entity: 12837192831273
-    TagComponent:
-      Tag: square
-    TransformComponent:
-      Translation: [0, 0, 0]
-      Rotation: [-0.0297759939, 0.0187497251, -1.56964529]
-      Scale: [0.999979854, 1, 0.999982059]
-    SpriteRendererComponent:
-      Color: [0.911196887, 0.576974094, 0.576974094, 1]
-    Rigidbody2DComponent:
-      BodyType: Dynamic
-      FixedRotation: false
-    BoxCollider2DComponent:
-      Offset: [0, 0]
-      Size: [0.5, 0.5]
-      Density: 1
-      Friction: 0.5
-      Restitution: 0.479999989
-      RestitutionThreshold: 0.629999995
-  - Entity: 12837192831273
+  - Entity: 7304876626888647836
     TagComponent:
       Tag: camera
     TransformComponent:
-      Translation: [0, 0, 6.51739025]
+      Translation: [0, 0, 8.13336468]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     CameraComponent:
@@ -37,15 +18,34 @@ Entities:
         OrthographicFar: 1
       Primary: true
       FixedAspectRatio: false
-  - Entity: 12837192831273
+  - Entity: 1455386842311544588
     TagComponent:
-      Tag: Empty Entity
+      Tag: square
     TransformComponent:
-      Translation: [0, -1.95977688, 0]
-      Rotation: [0, 0, 0]
-      Scale: [9.64330673, 0.783724666, 1]
+      Translation: [0.0176686645, 1.12620974, -1.1920929e-07]
+      Rotation: [0.0534016192, -0.0249258652, -0.462343305]
+      Scale: [0.5, 0.5, 0.999999881]
     SpriteRendererComponent:
       Color: [1, 1, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.519999981
+      RestitutionThreshold: 0.5
+  - Entity: 7051497492154299359
+    TagComponent:
+      Tag: square
+    TransformComponent:
+      Translation: [0, -1.06015134, 0]
+      Rotation: [0, 0, 0]
+      Scale: [6.9909277, 0.456647962, 1]
+    SpriteRendererComponent:
+      Color: [0.749034762, 0.240038157, 0.240038157, 1]
     Rigidbody2DComponent:
       BodyType: Static
       FixedRotation: false
