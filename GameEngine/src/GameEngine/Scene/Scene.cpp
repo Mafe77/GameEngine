@@ -80,6 +80,7 @@ namespace GameEngine
 
 		CopyComponent<TransformComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		CopyComponent<SpriteRendererComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
+		CopyComponent<CircleRendererComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		CopyComponent<CameraComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		CopyComponent<NativeScriptComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		CopyComponent<Rigidbody2DComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
@@ -218,6 +219,11 @@ namespace GameEngine
 					Renderer2D::DrawSprite(transform.GetTransform(), sprite, (int)entity);
 				});
 
+			m_Registry.view<TransformComponent, CircleRendererComponent>().each([](auto entity, auto& transform, auto& circle)
+				{
+					Renderer2D::DrawCircle(transform.GetTransform(), circle.Color, circle.Thickness, circle.Fade, (int)entity);
+				});
+
 			Renderer2D::EndScene();
 		}
 	}
@@ -228,8 +234,12 @@ namespace GameEngine
 
 		m_Registry.view<TransformComponent, SpriteRendererComponent>().each([](auto entity, auto& transform, auto& sprite)
 			{
-				//GE_CORE_INFO("Drawing sprite entity");
 				Renderer2D::DrawSprite(transform.GetTransform(), sprite, (int)entity);
+			});
+
+		m_Registry.view<TransformComponent, CircleRendererComponent>().each([](auto entity, auto& transform, auto& circle)
+			{
+				Renderer2D::DrawCircle(transform.GetTransform(), circle.Color, circle.Thickness, circle.Fade, (int)entity);
 			});
 
 		Renderer2D::EndScene();
@@ -259,6 +269,7 @@ namespace GameEngine
 
 		CopyComponentIfExists<TransformComponent>(newEntity, entity);
 		CopyComponentIfExists<SpriteRendererComponent>(newEntity, entity);
+		CopyComponentIfExists<CircleRendererComponent>(newEntity, entity);
 		CopyComponentIfExists<CameraComponent>(newEntity, entity);
 		CopyComponentIfExists<NativeScriptComponent>(newEntity, entity);
 		CopyComponentIfExists<Rigidbody2DComponent>(newEntity, entity);
@@ -314,12 +325,12 @@ namespace GameEngine
 
 	template<>
 	void Scene::OnComponentAdded<SpriteRendererComponent>(Entity entity, SpriteRendererComponent& component)
-	{
-		/*m_Registry.view<TransformComponent, SpriteRendererComponent>().each([](auto& transform, auto& sprite)
-			{
-				Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color);
-			});*/
-		
+	{		
+	}
+
+	template<>
+	void Scene::OnComponentAdded<CircleRendererComponent>(Entity entity, CircleRendererComponent& component)
+	{		
 	}
 
 	template<>

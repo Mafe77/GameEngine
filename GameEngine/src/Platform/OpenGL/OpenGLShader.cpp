@@ -32,8 +32,8 @@ namespace GameEngine
 		{
 			switch (stage)
 			{
-				case GL_VERTEX_SHADER: return shaderc_glsl_vertex_shader;
-				case GL_FRAGMENT_SHADER: return shaderc_glsl_fragment_shader;
+				case GL_VERTEX_SHADER:		return shaderc_glsl_vertex_shader;
+				case GL_FRAGMENT_SHADER:	return shaderc_glsl_fragment_shader;
 			}
 			GE_CORE_ASSERT(false);
 			return (shaderc_shader_kind)0;
@@ -87,8 +87,11 @@ namespace GameEngine
 
 
 	OpenGLShader::OpenGLShader(const std::string& filepath)
+		: m_FilePath(filepath)
 	{
 		GE_PROFILE_FUNCTION();
+
+		GE_CORE_INFO("filepath name: {0}", filepath);
 
 		Utils::CreateCacheDirectoryIfNeeded();
 
@@ -186,11 +189,10 @@ namespace GameEngine
 
 	void OpenGLShader::CompileOrGetVulkanBinaries(const std::unordered_map<GLenum, std::string>& shaderSources)
 	{
-		GLuint program = glCreateProgram();
 
 		shaderc::Compiler compiler;
 		shaderc::CompileOptions options;
-		options.SetTargetEnvironment(shaderc_target_env_vulkan, shaderc_env_version_vulkan_1_4);
+		options.SetTargetEnvironment(shaderc_target_env_vulkan, shaderc_env_version_vulkan_1_2);
 
 		const bool optimize = true;
 		if (optimize)
@@ -203,9 +205,7 @@ namespace GameEngine
 		for (auto&& [stage, source] : shaderSources)
 		{
 			std::filesystem::path shaderFilePath = m_FilePath;
-			std::filesystem::path cachedPath = cacheDirectory
-				/ (shaderFilePath.filename().string()
-					+ Utils::GLShaderStageCachedVulkanFileExtension(stage));
+			std::filesystem::path cachedPath = cacheDirectory / (shaderFilePath.filename().string() + Utils::GLShaderStageCachedVulkanFileExtension(stage));
 
 			std::ifstream in(cachedPath, std::ios::in | std::ios::binary);
 			if (in.is_open())
@@ -253,7 +253,6 @@ namespace GameEngine
 		shaderc::Compiler compiler;
 		shaderc::CompileOptions options;
 		options.SetTargetEnvironment(shaderc_target_env_opengl, shaderc_env_version_opengl_4_5);
-
 		const bool optimize = false;
 		if (optimize)
 			options.SetOptimizationLevel(shaderc_optimization_level_performance);
@@ -265,9 +264,7 @@ namespace GameEngine
 		for (auto&& [stage, spirv] : m_VulkanSPIRV)
 		{
 			std::filesystem::path shaderFilePath = m_FilePath;
-			std::filesystem::path cachedPath = cacheDirectory
-				/ (shaderFilePath.filename().string()
-					+ Utils::GLShaderStageCachedOpenGLFileExtension(stage));
+			std::filesystem::path cachedPath = cacheDirectory / (shaderFilePath.filename().string() + Utils::GLShaderStageCachedOpenGLFileExtension(stage));
 
 			std::ifstream in(cachedPath, std::ios::in | std::ios::binary);
 			if (in.is_open())
@@ -284,11 +281,10 @@ namespace GameEngine
 			{
 				spirv_cross::CompilerGLSL glslCompiler(spirv);
 				m_OpenGLSourceCode[stage] = glslCompiler.compile();
+
 				auto& source = m_OpenGLSourceCode[stage];
 
-				shaderc::SpvCompilationResult module = compiler.CompileGlslToSpv(source,
-					Utils::GLShaderStageToShaderC(stage), m_FilePath.c_str());
-
+				shaderc::SpvCompilationResult module = compiler.CompileGlslToSpv(source, Utils::GLShaderStageToShaderC(stage), m_FilePath.c_str());
 				if (module.GetCompilationStatus() != shaderc_compilation_status_success)
 				{
 					GE_CORE_ERROR(module.GetErrorMessage());
@@ -317,8 +313,7 @@ namespace GameEngine
 		for (auto&& [stage, spirv] : m_OpenGLSPIRV)
 		{
 			GLuint shaderID = shaderIDs.emplace_back(glCreateShader(stage));
-			glShaderBinary(1, &shaderID, GL_SHADER_BINARY_FORMAT_SPIR_V,
-				spirv.data(), spirv.size() * sizeof(uint32_t));
+			glShaderBinary(1, &shaderID, GL_SHADER_BINARY_FORMAT_SPIR_V, spirv.data(), spirv.size() * sizeof(uint32_t));
 			glSpecializeShader(shaderID, "main", 0, nullptr, nullptr);
 			glAttachShader(program, shaderID);
 		}
@@ -334,7 +329,7 @@ namespace GameEngine
 
 			std::vector<GLchar> infoLog(maxLength);
 			glGetProgramInfoLog(program, maxLength, &maxLength, infoLog.data());
-			GE_CORE_ERROR("Shader linking failed ({0}): \n{1}", m_FilePath, infoLog.data());
+			GE_CORE_ERROR("Shader linking failed ({0}):\n{1}", m_FilePath, infoLog.data());
 
 			glDeleteProgram(program);
 

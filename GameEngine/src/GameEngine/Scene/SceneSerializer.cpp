@@ -206,6 +206,19 @@ namespace GameEngine
 			out << YAML::EndMap; // sprite comp
 		}
 
+		if (entity.HasComponent<CircleRendererComponent>())
+		{
+			out << YAML::Key << "CircleRendererComponent";
+			out << YAML::BeginMap; // circle comp
+
+			auto& circleComponent = entity.GetComponent<CircleRendererComponent>();
+			out << YAML::Key << "Color" << YAML::Value << circleComponent.Color;
+			out << YAML::Key << "Thickness" << YAML::Value << circleComponent.Thickness;
+			out << YAML::Key << "Fade" << YAML::Value << circleComponent.Fade;
+
+			out << YAML::EndMap; // circle comp
+		}
+
 		if (entity.HasComponent<Rigidbody2DComponent>())
 		{
 			out << YAML::Key << "Rigidbody2DComponent";
@@ -342,6 +355,15 @@ namespace GameEngine
 				{
 					auto& src = deserializedEntity.AddComponent<SpriteRendererComponent>();
 					src.Color = spriteComponent["Color"].as<glm::vec4>();
+				}
+
+				auto circleComponent = entity["CircleRendererComponent"];
+				if (circleComponent)
+				{
+					auto& crc = deserializedEntity.AddComponent<CircleRendererComponent>();
+					crc.Color = circleComponent["Color"].as<glm::vec4>();
+					crc.Thickness = circleComponent["Thickness"].as<float>();
+					crc.Fade = circleComponent["Fade"].as<float>();
 				}
 
 				auto rigidComponent = entity["Rigidbody2DComponent"];
