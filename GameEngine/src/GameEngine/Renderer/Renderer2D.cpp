@@ -479,7 +479,7 @@ namespace GameEngine
 		DrawLine(p3, p0, color);
 	}
 
-	void Renderer2D::DrawRect(const glm::vec4& transform, const glm::vec4& color, int entityID)
+	void Renderer2D::DrawRect(const glm::mat4& transform, const glm::vec4& color, int entityID)
 	{
 		glm::vec3 lineVertices[4];
 

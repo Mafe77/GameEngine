@@ -25,6 +25,8 @@ namespace GameEngine
 		bool OnKeyPressed(KeyPressedEvent& e);
 		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
 
+		void OnOverlayRender();
+
 		void NewScene();
 		void OpenScene();
 		void OpenScene(const std::filesystem::path& path);
@@ -34,6 +36,7 @@ namespace GameEngine
 		void SerializeScene(Ref<Scene> scene, const std::filesystem::path& path);
 
 		void OnScenePlay();
+		void OnSceneSimulate();
 		void OnSceneStop();
 
 		void OnDuplicateEntity();
@@ -74,13 +77,15 @@ namespace GameEngine
 
 		int m_GizmoType = -1;
 
+		bool m_ShowPhysicsColliders = false;
+
 		enum class SceneState
 		{
-			Edit = 0, Play = 1
+			Edit = 0, Play = 1, Simulate = 2
 		};
 		SceneState m_SceneState = SceneState::Edit;
 
-		Ref<Texture2D> m_IconPlay, m_IconStop;
+		Ref<Texture2D> m_IconPlay, m_IconSimulate, m_IconStop;
 	};
 
 }
