@@ -311,6 +311,7 @@ namespace GameEngine
 		}
 		catch (YAML::ParserException e)
 		{
+			GE_CORE_ERROR("Failed to load .engine file '{0}'\n {1}", filepath, e.what());
 			return false;
 		}
 
@@ -404,7 +405,7 @@ namespace GameEngine
 				}
 
 				auto ccComponent = entity["CircleCollider2DComponent"];
-				if (circleComponent)
+				if (ccComponent)
 				{
 					auto& cc2d = deserializedEntity.AddComponent<CircleCollider2DComponent>();
 					cc2d.Offset = ccComponent["Offset"].as<glm::vec2>();
