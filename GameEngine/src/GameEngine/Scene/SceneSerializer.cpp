@@ -203,6 +203,11 @@ namespace GameEngine
 			auto& spriteComponent = entity.GetComponent<SpriteRendererComponent>();
 			out << YAML::Key << "Color" << YAML::Value << spriteComponent.Color;
 
+			if (spriteComponent.Texture)
+				out << YAML::Key << "TexturePath" << YAML::Value << spriteComponent.Texture->GetPath();
+
+			out << YAML::Key << "TilingFactor" << YAML::Value << spriteComponent.TilingFactor;
+
 			out << YAML::EndMap; // sprite comp
 		}
 
@@ -372,6 +377,12 @@ namespace GameEngine
 				{
 					auto& src = deserializedEntity.AddComponent<SpriteRendererComponent>();
 					src.Color = spriteComponent["Color"].as<glm::vec4>();
+
+					if (spriteComponent["TexturePath"])
+						src.Texture = Texture2D::Create(spriteComponent["TexturePath"].as<std::string>());
+
+					if (spriteComponent["TilingFactor"])
+						src.TilingFactor = spriteComponent["TilingFactor"].as<float>();
 				}
 
 				auto circleComponent = entity["CircleRendererComponent"];

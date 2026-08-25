@@ -19,11 +19,6 @@ namespace GameEngine
 		{
 			PushLayer(new EditorLayer());
 		}
-
-		~EngineEditor()
-		{
-
-		}
 	};
 
 
