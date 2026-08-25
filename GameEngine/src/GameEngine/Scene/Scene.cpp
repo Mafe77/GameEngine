@@ -1,9 +1,9 @@
 #include "gepch.h"
 #include "Scene.h"
 
+#include "Entity.h"
 #include "Components.h"
 #include "ScriptableEntity.h"
-#include "Entity.h"
 #include "GameEngine/Renderer/Renderer2D.h"
 
 #include <glm/glm.hpp>

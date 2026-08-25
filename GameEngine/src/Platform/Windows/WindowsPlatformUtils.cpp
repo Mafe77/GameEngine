@@ -1,12 +1,12 @@
 #include "gepch.h"
 #include "GameEngine/Utils/PlatformUtils.h"
+#include "GameEngine/Core/Application.h"
 
 #include <commdlg.h>
 #include <GLFW/glfw3.h>
 #define GLFW_EXPOSE_NATIVE_WIN32
 #include <GLFW/glfw3native.h>
 
-#include "GameEngine/Core/Application.h"
 
 namespace GameEngine
 {

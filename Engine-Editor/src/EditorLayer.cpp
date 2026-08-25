@@ -1,14 +1,12 @@
 #include "EditorLayer.h"
 #include "imgui/imgui.h"
-
-#include "Platform/OpenGL/OpenGLShader.h"
-
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
 #include "GameEngine/Scene/SceneSerializer.h"
 #include "GameEngine/Utils/PlatformUtils.h"
 #include "GameEngine/Math/Math.h"
+
+
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "ImGuizmo.h"
 

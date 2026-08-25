@@ -1,5 +1,6 @@
 #include "gepch.h"
 #include "OpenGLShader.h"
+#include "GameEngine/Core/Timer.h"
 
 #include <fstream>
 #include <filesystem>
@@ -10,7 +11,6 @@
 #include <spirv_cross/spirv_cross.hpp>
 #include <spirv_cross/spirv_glsl.hpp>
 
-#include "GameEngine/Core/Timer.h"
 
 namespace GameEngine
 {
