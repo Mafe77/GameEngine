@@ -11,15 +11,18 @@ namespace GameEngine
 {
 	Application* Application::s_Instance = nullptr;
 
-	Application::Application(const std::string& name, ApplicationCommandLineArgs args)
-		: m_CommandLineArgs(args)
+	Application::Application(const ApplicationSpecification& specification)
+		: m_Specification(specification)
 	{
 		GE_PROFILE_FUNCTION();
 
 		GE_CORE_ASSERT(!s_Instance, "Application already exists.");
 		s_Instance = this;
 
-		m_Window = Scope<Window>(Window::Create(WindowProps(name)));
+		if (!m_Specification.WorkingDirectory.empty())
+			std::filesystem::current_path(m_Specification.WorkingDirectory);
+
+		m_Window = Window::Create(WindowProps(m_Specification.Name));
 		m_Window->SetEventCallback(GE_BIND_EVENT_FN(Application::OnEvent));
 
 		Renderer::Init();

@@ -24,11 +24,6 @@ namespace GameEngine
 		GE_CORE_ERROR("GLFW Erro ({0}): {1}", error, description);
 	}
 
-	Window* Window::Create(const WindowProps& props)
-	{
-		return new WindowsWindow(props);
-	}
-
 	WindowsWindow::WindowsWindow(const WindowProps& props)
 	{
 		GE_PROFILE_FUNCTION();

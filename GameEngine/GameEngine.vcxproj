@@ -634,6 +634,7 @@
     <ClCompile Include="src\GameEngine\Core\LayerStack.cpp" />
     <ClCompile Include="src\GameEngine\Core\Log.cpp" />
     <ClCompile Include="src\GameEngine\Core\UUID.cpp" />
+    <ClCompile Include="src\GameEngine\Core\Window.cpp" />
     <ClCompile Include="src\GameEngine\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\GameEngine\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\GameEngine\Math\Math.cpp" />

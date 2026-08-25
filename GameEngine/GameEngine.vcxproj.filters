@@ -1612,5 +1612,6 @@
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\Core\UUID.cpp" />
+    <ClCompile Include="src\GameEngine\Core\Window.cpp" />
   </ItemGroup>
 </Project>

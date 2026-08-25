@@ -219,7 +219,8 @@
 class Sandbox : public GameEngine::Application
 {
 public:
-	Sandbox()
+	Sandbox(const GameEngine::ApplicationSpecification& specification)
+		: GameEngine::Application(specification)
 	{
 		//PushLayer(new ExampleLayer());
 		PushLayer(new Sandbox2D());
@@ -232,7 +233,11 @@ public:
 };
 
 
-GameEngine::Application* GameEngine::CreateApplication()
+GameEngine::Application* GameEngine::CreateApplication(GameEngine::ApplicationCommandLineArgs args)
 {
-	return new Sandbox();
+	ApplicationSpecification spec;
+	spec.Name = "Sandbox";
+	spec.WorkingDirectory = "../Engine-Editor";
+	spec.CommandLineArgs = args;
+	return new Sandbox(spec);
 }

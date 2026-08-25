@@ -14,8 +14,8 @@ namespace GameEngine
 	class EngineEditor : public Application
 	{
 	public:
-		EngineEditor(ApplicationCommandLineArgs args)
-			: Application("Engine Editor", args)
+		EngineEditor(const ApplicationSpecification& spec)
+			: Application(spec)
 		{
 			PushLayer(new EditorLayer());
 		}
@@ -29,7 +29,10 @@ namespace GameEngine
 
 	Application* CreateApplication(ApplicationCommandLineArgs args)
 	{
-		return new EngineEditor(args);
+		ApplicationSpecification spec;
+		spec.Name = "EngineEditor";
+		spec.CommandLineArgs = args;
+		return new EngineEditor(spec);
 	}
 }
 

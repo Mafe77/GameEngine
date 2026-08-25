@@ -25,10 +25,17 @@ namespace GameEngine
 		}
 	};
 
+	struct ApplicationSpecification
+	{
+		std::string Name = "Engine Application";
+		std::string WorkingDirectory;
+		ApplicationCommandLineArgs CommandLineArgs;
+	};
+
 	class Application
 	{
 	public:
-		Application(const std::string& name = "Game Engine", ApplicationCommandLineArgs args = ApplicationCommandLineArgs());
+		Application(const ApplicationSpecification& specification);
 		virtual ~Application();
 
 		void Run();
@@ -40,7 +47,7 @@ namespace GameEngine
 
 		inline static Application& Get() { return *s_Instance; }
 
-		ApplicationCommandLineArgs GetCommandLineArgs() const { return m_CommandLineArgs; }
+		const ApplicationSpecification& GetSpecificiation() const { return m_Specification; }
 
 		inline Window& GetWindow() { return *m_Window; }
 
@@ -53,7 +60,7 @@ namespace GameEngine
 		bool OnWindowResize(WindowResizeEvent& e);
 
 	private:
-		ApplicationCommandLineArgs m_CommandLineArgs;
+		ApplicationSpecification m_Specification;
 		Scope<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
