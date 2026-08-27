@@ -28,6 +28,9 @@
     <Filter Include="src\GameEngine\Scene">
       <UniqueIdentifier>{A992522E-9521-DCF7-3E40-F0F22AAEEC9D}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GameEngine\Scripting">
+      <UniqueIdentifier>{8E805143-7AA5-A0C3-A3F0-85538F749FE1}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\GameEngine\Utils">
       <UniqueIdentifier>{EC26802E-D8B5-09F8-81D4-1DF36D421A9E}</UniqueIdentifier>
     </Filter>
@@ -106,6 +109,9 @@
       <Filter>src\GameEngine\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Core\Timestep.h">
+      <Filter>src\GameEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Core\UUID.h">
       <Filter>src\GameEngine\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Core\Window.h">
@@ -194,6 +200,9 @@
     </ClInclude>
     <ClInclude Include="src\GameEngine\Scene\ScriptableEntity.h">
       <Filter>src\GameEngine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameEngine\Scripting\ScriptEngine.h">
+      <Filter>src\GameEngine\Scripting</Filter>
     </ClInclude>
     <ClInclude Include="src\GameEngine\Utils\PlatformUtils.h">
       <Filter>src\GameEngine\Utils</Filter>
@@ -1491,7 +1500,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameEngine\Core\UUID.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameEngine\Core\Application.cpp">
@@ -1504,6 +1512,12 @@
       <Filter>src\GameEngine\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\Core\Log.cpp">
+      <Filter>src\GameEngine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine\Core\UUID.cpp">
+      <Filter>src\GameEngine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameEngine\Core\Window.cpp">
       <Filter>src\GameEngine\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\GameEngine\ImGui\ImGuiBuild.cpp">
@@ -1569,6 +1583,9 @@
     <ClCompile Include="src\GameEngine\Scene\SceneSerializer.cpp">
       <Filter>src\GameEngine\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameEngine\Scripting\ScriptEngine.cpp">
+      <Filter>src\GameEngine\Scripting</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
@@ -1611,7 +1628,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameEngine\Core\UUID.cpp" />
-    <ClCompile Include="src\GameEngine\Core\Window.cpp" />
   </ItemGroup>
 </Project>

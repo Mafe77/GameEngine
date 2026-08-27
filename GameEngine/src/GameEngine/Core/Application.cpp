@@ -4,6 +4,7 @@
 #include "Log.h"
 
 #include "GameEngine/Renderer/Renderer.h"
+#include "GameEngine/Scripting/ScriptEngine.h"
 
 #include <glfw/glfw3.h>
 
@@ -26,6 +27,7 @@ namespace GameEngine
 		m_Window->SetEventCallback(GE_BIND_EVENT_FN(Application::OnEvent));
 
 		Renderer::Init();
+		ScriptEngine::Init();
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
@@ -35,6 +37,7 @@ namespace GameEngine
 	{
 		GE_PROFILE_FUNCTION();
 
+		ScriptEngine::Shutdown();
 		Renderer::Shutdown();
 	}
 

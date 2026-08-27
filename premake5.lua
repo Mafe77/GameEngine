@@ -27,12 +27,16 @@ IncludeDir["shaderc"] = "GameEngine/vendor/shaderc/include"
 IncludeDir["SPIRV_Cross"] = "GameEngine/vendor/SPIRV-Cross"
 IncludeDir["VulkanSDK"] = "%{VULKAN_SDK}/Include"
 IncludeDir["Box2D"] = "GameEngine/vendor/Box2D/include"
+IncludeDir["mono"] = "GameEngine/vendor/mono/include"
 
 LibraryDir = {}
 LibraryDir["VulkanSDK"] = "%{VULKAN_SDK}/Lib"
 LibraryDir["VulkanSDK_Debug"] = "%{VULKAN_SDK}/Lib"
+LibraryDir["mono"] = "vendor/mono/lib/%{cfg.buildcfg}"
 
 Library = {}
+Library["mono"] = "%{LibraryDir.mono}/libmono-static-sgen.lib"
+
 Library["Vulkan"] = "%{LibraryDir.VulkanSDK}/vulkan-1.lib"
 Library["VulkanUtils"] = "%{LibraryDir.VulkanSDK}/VkLayer_utils.lib"
 
@@ -44,6 +48,11 @@ Library["SPIRV_Tools_Debug"] = "%{LibraryDir.VulkanSDK_Debug}/SPIRV-Toolsd.lib"
 Library["ShaderC_Release"] = "%{LibraryDir.VulkanSDK}/shaderc_shared.lib"
 Library["SPIRV_Cross_Release"] = "%{LibraryDir.VulkanSDK}/spirv-cross-core.lib"
 Library["SPIRV_Cross_GLSL_Release"] = "%{LibraryDir.VulkanSDK}/spirv-cross-glsl.lib"
+
+Library["WinSock"] = "Ws2_32.lib"
+Library["WinMM"] = "Winmm.lib"
+Library["WinVersion"] = "Version.lib"
+Library["BCrypt"] = "Bcrypt.lib"
 
 group "Dependencies"
     include "GameEngine/vendor/GLFW"
@@ -99,7 +108,8 @@ project "GameEngine"
         "%{IncludeDir.yaml_cpp}",
         "%{IncludeDir.ImGuizmo}",
         "%{IncludeDir.VulkanSDK}",
-        "%{IncludeDir.Box2D}"
+        "%{IncludeDir.Box2D}",
+        "%{IncludeDir.mono}"
     }
 
     links
@@ -109,7 +119,9 @@ project "GameEngine"
         "ImGui",
         "yaml-cpp",
         "opengl32.lib",
-        "Box2D"
+        "Box2D",
+
+        "%{Library.mono}"
     }
 
     filter "files:GameEngine/vendor/ImGuizmo/**.cpp"
@@ -126,6 +138,13 @@ project "GameEngine"
             "GE_BUILD_DLL",
             "GLFW_INCLUDE_NONE"
         }
+        links
+		{
+			"%{Library.WinSock}",
+			"%{Library.WinMM}",
+			"%{Library.WinVersion}",
+			"%{Library.BCrypt}",
+		}
 
     filter "configurations:Debug"
         defines "GE_DEBUG"
@@ -303,3 +322,30 @@ project "Engine-Editor"
         {
             '{COPY} "%{VULKAN_SDK}/Bin/shaderc_shared.dll" "%{cfg.targetdir}"'
         }
+
+project "Engine-ScriptCore"
+    location "Engine-ScriptCore"
+    kind "SharedLib"
+    language "C#"
+    dotnetframework "4.8"
+
+    targetdir ("%{wks.location}/Engine-Editor/Resources/Scripts")
+	objdir ("%{wks.location}/Engine-Editor/Resources/Scripts/Intermediates")
+
+    files 
+	{
+		"Source/**.cs",
+		"Properties/**.cs"
+	}
+	
+	filter "configurations:Debug"
+		optimize "Off"
+		symbols "Default"
+
+	filter "configurations:Release"
+		optimize "On"
+		symbols "Default"
+
+	filter "configurations:Dist"
+		optimize "Full"
+		symbols "Off"

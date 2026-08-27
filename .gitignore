@@ -11,6 +11,7 @@ GameEngine/assets/cache
 # bin folders
 bin/
 bin-int/
+Intermediates/
 
 # User-specific files
 *.rsuser
