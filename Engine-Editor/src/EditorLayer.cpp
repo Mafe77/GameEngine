@@ -215,6 +215,8 @@ namespace GameEngine
 		m_SceneHierarchyPanel.OnImGuiRender();
 		m_ContentBrowserPanel.OnImGuiRender();
 
+
+		// --------- STATS -------------------
 		ImGui::Begin("Stats");
 
 		std::string name = "None";
@@ -231,11 +233,14 @@ namespace GameEngine
 
 		ImGui::End();
 
+		// --------- SETTINGS ----------------
 		ImGui::Begin("Settings");
 		ImGui::Checkbox("Show physics colliders", &m_ShowPhysicsColliders);
 		ImGui::End();
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
+
+		// --------- VIEW PORT ----------------
 		ImGui::Begin("Viewport");
 
 		auto viewportMinRegion = ImGui::GetWindowContentRegionMin();

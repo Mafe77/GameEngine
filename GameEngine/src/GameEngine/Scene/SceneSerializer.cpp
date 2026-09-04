@@ -195,6 +195,17 @@ namespace GameEngine
 			out << YAML::EndMap; // camera comp
 		}
 
+		if (entity.HasComponent<ScriptComponent>())
+		{
+			out << YAML::Key << "ScriptComponent";
+			out << YAML::BeginMap; // script comp
+
+			auto& scriptComponent = entity.GetComponent<ScriptComponent>();
+			out << YAML::Key << "ClassName" << YAML::Value << scriptComponent.ClassName;
+
+			out << YAML::EndMap; // script comp
+		}
+
 		if (entity.HasComponent<SpriteRendererComponent>())
 		{
 			out << YAML::Key << "SpriteRendererComponent";
@@ -371,6 +382,13 @@ namespace GameEngine
 					cc.FixedAspectRatio = cameraComponent["FixedAspectRatio"].as<bool>();
 				}
 
+				auto scriptComponent = entity["ScriptComponent"];
+				if (scriptComponent)
+				{
+					auto& scc = deserializedEntity.AddComponent<ScriptComponent>();
+					scc.ClassName = scriptComponent["ClassName"].as<std::string>();
+
+				}
 
 				auto spriteComponent = entity["SpriteRendererComponent"];
 				if (spriteComponent)

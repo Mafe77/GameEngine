@@ -62,7 +62,15 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Source\Main.cs" />
+    <Compile Include="Source\Camera.cs" />
+    <Compile Include="Source\GameEngine\Input.cs" />
+    <Compile Include="Source\GameEngine\InternalCalls.cs" />
+    <Compile Include="Source\GameEngine\KeyCode.cs" />
+    <Compile Include="Source\GameEngine\Scene\Components.cs" />
+    <Compile Include="Source\GameEngine\Scene\Entity.cs" />
+    <Compile Include="Source\GameEngine\Vector2.cs" />
+    <Compile Include="Source\GameEngine\Vector3.cs" />
+    <Compile Include="Source\Player.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
