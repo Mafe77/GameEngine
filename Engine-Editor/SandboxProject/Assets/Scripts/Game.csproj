@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
-    <ProjectGuid>{66232257-D239-20ED-1BB1-AB0E8706F174}</ProjectGuid>
+    <ProjectGuid>{7FA9857C-6BE0-860D-14CD-6C1000E3020F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Engine-ScriptCore</RootNamespace>
-    <AssemblyName>Engine-ScriptCore</AssemblyName>
+    <RootNamespace>Game</RootNamespace>
+    <AssemblyName>Game</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -18,8 +18,8 @@
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <Optimize>false</Optimize>
-    <OutputPath>..\Engine-Editor\Resources\Scripts\</OutputPath>
-    <BaseIntermediateOutputPath>..\Engine-Editor\Resources\Scripts\Intermediates\Debug\</BaseIntermediateOutputPath>
+    <OutputPath>Binaries\</OutputPath>
+    <BaseIntermediateOutputPath>Intermediates\Debug\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
     <DefineConstants></DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -30,8 +30,8 @@
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <Optimize>true</Optimize>
-    <OutputPath>..\Engine-Editor\Resources\Scripts\</OutputPath>
-    <BaseIntermediateOutputPath>..\Engine-Editor\Resources\Scripts\Intermediates\Release\</BaseIntermediateOutputPath>
+    <OutputPath>Binaries\</OutputPath>
+    <BaseIntermediateOutputPath>Intermediates\Release\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
     <DefineConstants></DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -42,8 +42,8 @@
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
     <Optimize>true</Optimize>
-    <OutputPath>..\Engine-Editor\Resources\Scripts\</OutputPath>
-    <BaseIntermediateOutputPath>..\Engine-Editor\Resources\Scripts\Intermediates\Dist\</BaseIntermediateOutputPath>
+    <OutputPath>Binaries\</OutputPath>
+    <BaseIntermediateOutputPath>Intermediates\Dist\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
     <DefineConstants></DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -56,15 +56,14 @@
   <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Dist|x64' ">
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Source\GameEngine\Input.cs" />
-    <Compile Include="Source\GameEngine\InternalCalls.cs" />
-    <Compile Include="Source\GameEngine\KeyCode.cs" />
-    <Compile Include="Source\GameEngine\Scene\Components.cs" />
-    <Compile Include="Source\GameEngine\Scene\Entity.cs" />
-    <Compile Include="Source\GameEngine\Vector2.cs" />
-    <Compile Include="Source\GameEngine\Vector3.cs" />
+    <Compile Include="Source\Camera.cs" />
+    <Compile Include="Source\Player.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Engine-ScriptCore\Engine-ScriptCore.csproj">
+      <Project>{66232257-D239-20ED-1BB1-AB0E8706F174}</Project>
+      <Name>Engine-ScriptCore</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
