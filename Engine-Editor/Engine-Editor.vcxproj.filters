@@ -16,4 +16,8 @@
     <ClInclude Include="src\Panels\SceneHierarchyPanel.h" />
     <ClInclude Include="src\EditorLayer.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="SandboxProject\Assets\Scripts\Source\Camera.cs" />
+    <None Include="SandboxProject\Assets\Scripts\Source\Player.cs" />
+  </ItemGroup>
 </Project>

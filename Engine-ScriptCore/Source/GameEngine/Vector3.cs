@@ -32,7 +32,7 @@ namespace GameEngine
 
         public static Vector3 operator +(Vector3 a, Vector3 b)
         {
-            return new Vector3(a.X + b.X, a.Y + a.Y, a.Z + b.Z);
+            return new Vector3(a.X + b.X, a.Y + b.Y, a.Z + b.Z);
         }
 
         public static Vector3 operator *(Vector3 vector, float scalar)

@@ -171,6 +171,10 @@
     <ClInclude Include="src\Panels\ContentBrowserPanel.h" />
     <ClInclude Include="src\Panels\SceneHierarchyPanel.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="SandboxProject\Assets\Scripts\Source\Camera.cs" />
+    <None Include="SandboxProject\Assets\Scripts\Source\Player.cs" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
