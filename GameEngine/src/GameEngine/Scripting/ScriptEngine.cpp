@@ -24,11 +24,11 @@ namespace GameEngine
 		{"System.UInt32",	ScriptFieldType::UInt	},
 		{"System.UInt64",	ScriptFieldType::ULong	},
 
-		{"System.Vector2",	ScriptFieldType::Vector2},
-		{"System.Vector3",	ScriptFieldType::Vector3},
-		{"System.Vector4",	ScriptFieldType::Vector4},
+		{"GameEngine.Vector2",	ScriptFieldType::Vector2},
+		{"GameEngine.Vector3",	ScriptFieldType::Vector3},
+		{"GameEngine.Vector4",	ScriptFieldType::Vector4},
 
-		{"System.Entity",	ScriptFieldType::Entity	},
+		{"GameEngine.Entity",	ScriptFieldType::Entity	},
 	};
 
 	namespace Utils
@@ -346,6 +346,12 @@ namespace GameEngine
 	MonoImage* ScriptEngine::GetCoreAssemblyImage()
 	{
 		return s_Data->CoreAssemblyImage;
+	}
+
+	MonoObject* ScriptEngine::GetManagedInstance(UUID uuid)
+	{
+		GE_CORE_ASSERT(s_Data->EntityInstances.find(uuid) != s_Data->EntityInstances.end());
+		return s_Data->EntityInstances.at(uuid)->GetManagedObject();
 	}
 
 	MonoObject* ScriptEngine::InstantianteClass(MonoClass* monoClass)
